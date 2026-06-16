@@ -17,7 +17,10 @@ class Views::Collections::Show < Views::Base
     div(class: "w-full") do
       render Components::Ui::PageHeader.new do |header|
         header.with_primary do
-          simple_format(@collection.description, class: "text-base mb-3")
+          div(class: "[&_p]:text-base [&_p]:mb-3") do
+            marksmithed_minimal(@collection.description)
+          end
+
           RubyUI::Text(as: "p", size: "xs", weight: "muted", class: "mt-4 italic") { meta_info }
         end
 

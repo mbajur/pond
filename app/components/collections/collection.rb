@@ -24,7 +24,9 @@ module Components
                   "(p)"
                 } if @collection.private
 
-                simple_format(@collection.description, class: "text-sm font-normal mt-2")
+                div(class: "text-sm font-normal [&_p]:mt-2") do
+                  raw marksmithed_minimal(@collection.description)
+                end if @collection.description.present?
 
                 Text(size: "1", class: "text-muted-foreground mt-3 italic") do
                   meta_info

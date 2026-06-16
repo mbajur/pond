@@ -8,7 +8,10 @@ module Views
       def view_template(&)
         render Components::Ui::PageHeader.new do |header|
           header.with_primary do
-            RubyUI::Text(as: "p", weight: "", class: "mb-4") { @user.description } if @user.description.present?
+            div(class: "[&_p]:text-base [&_p]:mb-4") do
+              marksmithed_minimal(@user.description)
+            end if @user.description.present?
+
             render Views::Users::Header::PrimaryMeta.new(user: @user)
           end
 
