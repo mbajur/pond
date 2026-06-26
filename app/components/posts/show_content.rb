@@ -9,8 +9,8 @@ module Components
       def view_template(&)
         vanish(&)
 
-        div(class: "grid grid-cols-12 w-full") do
-          div(class: "col-span-12 lg:col-span-9") do
+        div(class: "grid grid-cols-12 w-full h-full min-h-0") do
+          div(class: "overflow-y-auto col-span-12 lg:col-span-9") do
             @preview_block.call if @preview_block
           end
 

@@ -5,7 +5,11 @@ class PostsController < ApplicationController
     post = policy_scope(Post).find(params[:id])
     authorize post
 
-    pins = policy_scope(Pin).where(pinable: post).limit(10).order(created_at: :desc)
+    pins = policy_scope(Pin)
+      .where(pinable: post)
+      .includes(:user, collection: [ :user ])
+      .limit(10)
+      .order(created_at: :desc)
 
     render Views::Posts::Show.new(post: post, pins: pins)
   end

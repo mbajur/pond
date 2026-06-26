@@ -68,9 +68,7 @@ module Components
           div(class: "flex flex-col h-screen") do
             Components::Navbar(position: :static, width: :full)
 
-            main(class: "flex flex-1") do
-              yield
-            end
+            yield
           end
         end
       end
