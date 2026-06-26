@@ -10,7 +10,7 @@ module Views
         Components::Posts::ShowContent() do |sc|
           sc.with_preview do
             div(class: "border-r p-6 h-full w-full flex items-center justify-center") do
-              div(class: "bg-muted prose p-12") do
+              div(class: "bg-muted prose prose-h1:font-bold prose-h2:font-bold p-12") do
                 raw marksmithed(@post.content).html_safe
               end
             end
