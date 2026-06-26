@@ -7,29 +7,31 @@ module Views
       end
 
       def view_template(&)
-        div(class: "w-full") do
-          render Components::Ui::PageHeader.new do |header|
-            header.with_title do
-              div(class: "flex gap-2 lg:gap-3 items-center") do
-                RubyUI::Text(as: "h1", size: "2xl", weight: "medium") { a(href: feed_path, class: "text-muted-foreground hover:text-foreground") { "Feed" } }
-                plain "•"
-                RubyUI::Text(as: "h1", size: "2xl", weight: "medium") { a(href: discover_path, class: "") { "Discover" } }
+        Components::PageWrap() do
+          div(class: "w-full") do
+            render Components::Ui::PageHeader.new do |header|
+              header.with_title do
+                div(class: "flex gap-2 lg:gap-3 items-center") do
+                  RubyUI::Text(as: "h1", size: "2xl", weight: "medium") { a(href: feed_path, class: "text-muted-foreground hover:text-foreground") { "Feed" } }
+                  plain "•"
+                  RubyUI::Text(as: "h1", size: "2xl", weight: "medium") { a(href: discover_path, class: "") { "Discover" } }
+                end
+              end
+
+              header.with_primary do
+                RubyUI::Text(as: "p", weight: "") { "Recently updated collections from everyone" }
               end
             end
 
-            header.with_primary do
-              RubyUI::Text(as: "p", weight: "") { "Recently updated collections from everyone" }
-            end
-          end
+            render RubyUI::Separator.new(class: "my-9")
 
-          render RubyUI::Separator.new(class: "my-9")
-
-          if @collections.any?
-            @collections.each do |collection|
-              render Components::Collections::Collection.new(collection: collection, opts: { show_author: @opts[:show_collection_author] })
+            if @collections.any?
+              @collections.each do |collection|
+                render Components::Collections::Collection.new(collection: collection, opts: { show_author: @opts[:show_collection_author] })
+              end
+            else
+              p { "No collections to show." }
             end
-          else
-            p { "No collections to show." }
           end
         end
       end

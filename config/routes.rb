@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get :secondary_actions, on: :member
   end
 
-  resources :posts, only: [] do
+  resources :posts, only: [ :show ] do
     get :new_text, on: :collection
     get :new_url, on: :collection
     get :new_image, on: :collection

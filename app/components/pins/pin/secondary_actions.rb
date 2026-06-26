@@ -9,7 +9,7 @@ module Components
       end
 
       def view_template(&)
-        div(class: "absolute top-2 right-2 hidden group-hover:block") do
+        div(class: "absolute z-8 top-2 right-2 hidden group-hover:block") do
           DropdownMenu(options: { placement: "bottom-start" }) do
             DropdownMenuTrigger(class: "w-full") do
               Button(variant: :outline, size: :sm) { "More" }

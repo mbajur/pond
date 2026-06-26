@@ -8,6 +8,7 @@ module Components
 
         def view_template(&)
           render Components::Pins::Pin::Thumb.new(pin: @pin)
+          Components::Posts::CardLink(href: post_path(@pin.pinable))
           render Components::Pins::Pin::SecondaryActions.new(pin: @pin) if authenticated?
           render Components::Posts::Text::PinContent::PrimaryActions.new(pin: @pin)
           render Components::Pins::Pin::Meta.new(pin: @pin)

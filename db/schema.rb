@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_21_125233) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_26_130353) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -104,6 +104,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_21_125233) do
     t.integer "collection_id"
     t.text "content"
     t.datetime "created_at", null: false
+    t.text "description"
     t.string "title"
     t.string "type", default: "Post::Url", null: false
     t.datetime "updated_at", null: false

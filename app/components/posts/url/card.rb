@@ -9,6 +9,7 @@ module Components
 
       def view_template(&)
         Components::Posts::Card() do
+          Components::Posts::CardLink(href: post_path(@post))
           Components::Posts::CardThumb() { image }
           Components::Posts::CardPrimaryActions() do |pa|
             pa.with_primary { Components::Posts::SaveBtn(post: @post) } if authenticated?

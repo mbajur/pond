@@ -1,4 +1,8 @@
 class PostPolicy < ApplicationPolicy
+  def show?
+    true
+  end
+
   def new?
     user.present?
   end

@@ -8,17 +8,19 @@ class Views::Collections::Index < Views::Base
   end
 
   def view_template
-    div(class: "w-full") do
-      render Views::Users::Header.new(user: @user)
+    Components::PageWrap() do
+      div(class: "w-full") do
+        render Views::Users::Header.new(user: @user)
 
-      render Components::Collections::Collection.new(collection: @inbox) if @inbox
+        render Components::Collections::Collection.new(collection: @inbox) if @inbox
 
-      @collections.each do |collection|
-        render Components::Collections::Collection.new(collection: collection)
-      end
+        @collections.each do |collection|
+          render Components::Collections::Collection.new(collection: collection)
+        end
 
-      if policy(@user).add_collection?
-        render Components::Collections::AddBtn.new(collection: Collection.new)
+        if policy(@user).add_collection?
+          render Components::Collections::AddBtn.new(collection: Collection.new)
+        end
       end
     end
   end
