@@ -7,12 +7,25 @@
   <body>
     <div class="relative container flex-1 shrink-0 items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <div class="relative hidden h-full flex-col p-10 text-primary lg:flex dark:border-r">
-        <div class="absolute inset-0 bg-primary/5"></div>
-        <div class="relative z-20 flex items-center text-lg font-medium italic">
+        <div class="absolute inset-0 bg-black"></div>
+        <div class="relative z-20 flex items-center text-lg font-medium italic text-white/90">
           ● pond
         </div>
 
-        <div class="relative z-20 mt-auto">
+        <div
+          data-controller="radio-waves"
+          data-radio-waves-width-value="90"
+          data-radio-waves-height-value="45"
+          data-radio-waves-speed-value="0.35"
+          data-radio-waves-wavelength-value="9"
+          data-radio-waves-thickness-value="1"
+          data-radio-waves-decay-value="1.0"
+          data-radio-waves-noise-value="0.26"
+          class="absolute inset-0 overflow-hidden leading-[1]">
+          <pre data-radio-waves-target="pre" class="h-full w-full text-white/30 whitespace-pre leading-[1]"></pre>
+        </div>
+
+        <div class="relative z-20 mt-auto text-white/90">
           <blockquote class="leading-normal text-balance">Inverted social link aggregation or whatever</blockquote>
         </div>
       </div>

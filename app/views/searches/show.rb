@@ -22,7 +22,7 @@ class Views::Searches::Show < Views::Base
         render Components::Collections::Collection.new(collection: collection)
       end
 
-      div(class: "mt-26 grid grid-cols-12 gap-9", id: "inbox-pins", data: { pagination_target: :results }) do
+      div(class: "mt-26 grid grid-cols-12 gap-4 lg:gap-9", id: "inbox-pins", data: { pagination_target: :results }) do
         @posts.each do |post|
           div(class: "col-span-6 lg:col-span-3") do
             if post.is_a?(Post::Url)

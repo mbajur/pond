@@ -7,7 +7,7 @@ module Components
     end
 
     def view_template(&)
-      header(class: "grid grid-cols-3 h-16 shrink-0 items-center gap-2 border-b px-5 container lg:border-0!") do
+      header(class: "grid grid-cols-3 h-16 shrink-0 items-center gap-2 border-b px-5 container fixed bg-white top-0 left-0 right-0 lg:border-0!") do
         div(class: "col-span-2 lg:col-span-1") do
           Link(href: root_path, variant: :link, class: "italic px-0 mr-3") do
             "● pond"
@@ -27,7 +27,7 @@ module Components
 
               DropdownMenu(options: { placement: "bottom-end" }, class: "hidden lg:block") do
                 DropdownMenuTrigger(class: "w-full") do
-                  Button(variant: :link, class: "px-0 lg:px-4") { current_user.to_param }
+                  Button(variant: :link, class: "px-0 lg:px-4") { current_user.to_s }
                 end
 
                 render Components::Navbar::UserDropdownContent.new()

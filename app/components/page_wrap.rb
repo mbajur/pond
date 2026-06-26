@@ -71,7 +71,7 @@ module Components
         SidebarInset do
           Components::Navbar(params: @params)
 
-          main(class: "container mx-auto my-10 lg:my-12 px-5 flex") do
+          main(class: "container mx-auto my-10 pt-16 lg:my-12 px-5 flex") do
             yield
           end
         end
