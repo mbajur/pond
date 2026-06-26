@@ -45,7 +45,7 @@ module Components
               SidebarMenu do
                 SidebarMenuItem do
                   SidebarMenuButton(as: :a, href: user_path(current_user.to_param)) do
-                    span { current_user }
+                    span { current_user.to_s }
                   end
 
                   DropdownMenu() do
