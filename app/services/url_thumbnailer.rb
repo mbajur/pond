@@ -13,7 +13,7 @@ class UrlThumbnailer
 
   def call
     logger.info "Running preflight check for URL: #{@post.url}..."
-    preflight = Faraday.head(@post.url_cache.url)
+    preflight = Faraday.head(@post.url)
     return unless preflight.success?
 
     logger.info "Preflight check successful for URL: #{@post.url}. Selecting handler..."

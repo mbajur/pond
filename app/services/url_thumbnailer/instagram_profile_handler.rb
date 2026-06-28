@@ -16,7 +16,7 @@ class UrlThumbnailer::InstagramProfileHandler < UrlThumbnailer::DefaultHandler
 
     if username_match
       username = username_match[2]
-      @post.url_cache.update!(title: "instagram.com/#{username}", refreshed_at: Time.current)
+      @post.update!(title: "instagram.com/#{username}")
     end
   end
 

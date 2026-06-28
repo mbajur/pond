@@ -14,52 +14,54 @@ class Views::Collections::Show < Views::Base
   end
 
   def view_template
-    div(class: "w-full") do
-      render Components::Ui::PageHeader.new do |header|
-        header.with_primary do
-          simple_format(@collection.description, class: "text-base mb-3")
-          RubyUI::Text(as: "p", size: "xs", weight: "muted", class: "mt-4 italic") { meta_info }
-        end
-
-        header.with_secondary do
-          if @collection.pins_as_pinable.any?
-            RubyUI::Text(as: "p", size: "xs", weight: "muted", class: "italic") {
-              plain "Pinned in "
-              pinned_in_links
-            }
-          end
-        end
-
-        header.with_actions do
-          if policy(@collection).connect?
-            data = {
-              controller: "connect-btn",
-              action: "click->connect-btn#openDialog",
-              connect_btn_url_value: new_collection_pins_path(@collection)
-            }
-
-            Button(data: data, variant: :secondary, size: :sm) { "Connect" }
+    Components::PageWrap() do
+      div(class: "w-full") do
+        render Components::Ui::PageHeader.new do |header|
+          header.with_primary do
+            simple_format(@collection.description, class: "text-base mb-3")
+            RubyUI::Text(as: "p", size: "xs", weight: "muted", class: "mt-4 italic") { meta_info }
           end
 
-          if policy(@collection).update?
-            Components::Collections::EditBtn(collection: @collection)
+          header.with_secondary do
+            if @collection.pins_as_pinable.any?
+              RubyUI::Text(as: "p", size: "xs", weight: "muted", class: "italic") {
+                plain "Pinned in "
+                pinned_in_links
+              }
+            end
           end
-        end
-      end
 
-      render RubyUI::Separator.new(class: "my-9")
+          header.with_actions do
+            if policy(@collection).connect?
+              data = {
+                controller: "connect-btn",
+                action: "click->connect-btn#openDialog",
+                connect_btn_url_value: new_collection_pins_path(@collection)
+              }
 
-      div(data: { controller: :pagination, pagination_results_id: "inbox-pins", pagination_pagination_id: "pagination" }) do
-        div(class: "grid grid-cols-12 gap-4 lg:gap-9", id: "inbox-pins", data: { pagination_target: :results }) do
-          @pins.each do |pin|
-            div(class: "col-span-6 lg:col-span-3", id: dom_id(pin, :cell)) do
-              render Components::Pins::Pin.new(pin: pin)
+              Button(data: data, variant: :secondary, size: :sm) { "Connect" }
+            end
+
+            if policy(@collection).update?
+              Components::Collections::EditBtn(collection: @collection)
             end
           end
         end
 
-        div(data: { pagination_target: :pagination }) do
-          link_to("Load more", url_for(page: @pagy.next), data: { pagination_target: :link }) if @pagy.next
+        render RubyUI::Separator.new(class: "my-9")
+
+        div(data: { controller: :pagination, pagination_results_id: "inbox-pins", pagination_pagination_id: "pagination" }) do
+          div(class: "grid grid-cols-12 gap-4 lg:gap-9", id: "inbox-pins", data: { pagination_target: :results }) do
+            @pins.each do |pin|
+              div(class: "col-span-6 lg:col-span-3", id: dom_id(pin, :cell)) do
+                render Components::Pins::Pin.new(pin: pin)
+              end
+            end
+          end
+
+          div(data: { pagination_target: :pagination }) do
+            link_to("Load more", url_for(page: @pagy.next), data: { pagination_target: :link }) if @pagy.next
+          end
         end
       end
     end

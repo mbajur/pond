@@ -5,9 +5,7 @@
   </head>
 
   <body>
-    <%= render Components::PageWrap.new(params: params) do %>
-      <%= yield %>
-    <% end %>
+    <%= yield %>
 
     <%= render RubyUI::ToastRegion.new(flash: flash.to_h) %>
     <%= render Components::ConnectDialog.new %>

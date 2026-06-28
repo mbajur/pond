@@ -4,7 +4,7 @@ module Components
       private
 
       def source_url
-        user_collection_path(@pin.pinable.user, @pin.pinable)
+        nil
       end
     end
   end

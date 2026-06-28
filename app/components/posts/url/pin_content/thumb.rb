@@ -22,11 +22,11 @@ module Components
           if @pin.options.thumb_source == "screenshot"
             if @pin.pinable.screenshot.attached?
               screenshot_image
-            elsif @pin.pinable.url_cache.thumb.attached?
+            elsif @pin.pinable.thumb.attached?
               thumb_image
             end
           else
-            if @pin.pinable.url_cache.thumb.attached?
+            if @pin.pinable.thumb.attached?
               thumb_image
             elsif @pin.pinable.screenshot.attached?
               screenshot_image
@@ -49,7 +49,7 @@ module Components
         end
 
         def thumb_image
-          img(src: rails_blob_path(@pin.pinable.url_cache.thumb.variant(:square_350)), width: 350, loading: :lazy, class: "w-full h-full object-contain")
+          img(src: rails_blob_path(@pin.pinable.thumb.variant(:square_350)), width: 350, loading: :lazy, class: "w-full h-full object-contain")
         end
 
         def image?

@@ -5,8 +5,8 @@ module Components
 
       def view_template(&)
         container do
-          div do
-            simple_format(pinable_description, class: "text-sm font-normal mt-2") if pinable_description.present?
+          div(class: "text-center") do
+            Heading(level: 3, class: "text-sm font-semibold") { @pin.pinable.name }
             Components::Collections::MetaInfo(collection: @pin.pinable, opts: { show_author: true })
           end
         end

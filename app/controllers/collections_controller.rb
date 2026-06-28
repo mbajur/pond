@@ -23,7 +23,7 @@ class CollectionsController < ApplicationController
     add_breadcrumb(@collection.name, user_collection_path(@collection.user, @collection))
 
     set_meta_tags @collection
-    @pagy, @pins = pagy(policy_scope(@collection.pins.order(id: :desc).includes(:user, pinable: [ :screenshot_attachment, url_cache: :thumb_attachment ])))
+    @pagy, @pins = pagy(policy_scope(@collection.pins.order(id: :desc).includes(:user, pinable: [ :screenshot_attachment, :thumb_attachment ])))
 
     Current.collection = @collection
 

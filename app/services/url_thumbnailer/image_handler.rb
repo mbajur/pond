@@ -10,9 +10,9 @@ class UrlThumbnailer::ImageHandler < UrlThumbnailer::DefaultHandler
   def process_meta
     logger.info "Processing metadata for URL: #{@post.url}..."
 
-    filename = File.basename(URI.parse(@url_cache.url).path)
-    @url_cache.thumb.attach(io: URI.parse(@url_cache.url).open, filename: filename)
-    @url_cache.update!(title: filename, refreshed_at: Time.current)
+    filename = File.basename(URI.parse(@post.url).path)
+    @post.thumb.attach(io: URI.parse(@post.url).open, filename: filename)
+    @post.update!(title: filename)
   end
 
   def process_screenshot

@@ -4,7 +4,7 @@ class SearchesController < ApplicationController
   def show
     @query = params[:q]
     @collections = policy_scope(Collection).search(@query).includes(:user).limit(3)
-    @posts = policy_scope(Post).search(@query).includes(:user, url_cache: [ :thumb_attachment ]).limit(24)
+    @posts = policy_scope(Post).search(@query).includes(:user, :thumb_attachment).limit(24)
 
     add_breadcrumb "Search results for '#{@query}'", search_path(q: @query)
 

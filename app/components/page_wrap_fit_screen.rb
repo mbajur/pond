@@ -1,6 +1,5 @@
 module Components
-  # @todo DRY this and PageWrapFitScreen
-  class PageWrap < Components::Base
+  class PageWrapFitScreen < Components::Base
     def view_template(&)
       SidebarWrapper do
         MobileSidebar(collapsible: :icon) do
@@ -66,9 +65,9 @@ module Components
         end
 
         SidebarInset do
-          Components::Navbar()
+          div(class: "flex flex-col h-screen") do
+            Components::Navbar(position: :static, width: :full)
 
-          main(class: "container mx-auto my-10 pt-16 lg:my-12 px-5 flex") do
             yield
           end
         end

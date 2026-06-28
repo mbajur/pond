@@ -1,6 +1,22 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [ :create_url, :create_text, :create_image ]
 
+  def show
+    post = policy_scope(Post).find(params[:id])
+    authorize post
+
+    @page_title = post.title.presence || "Untitled"
+    @page_description = post.description
+
+    pins = policy_scope(Pin)
+      .where(pinable: post)
+      .includes(:user, collection: [ :user ])
+      .limit(10)
+      .order(created_at: :desc)
+
+    render Views::Posts::Show.new(post: post, pins: pins)
+  end
+
   # GET /pins/new
   def new_text
     post = Post::Text.new(create_text_params)
@@ -59,7 +75,6 @@ class PostsController < ApplicationController
     Post.transaction do
       @post = Post.new(create_url_params.except(:collection_id))
       @post.user = current_user
-      @post.url_cache = UrlCache.find_or_create_by(url: @post.url)
       @post.save if @post.new_record?
 
       @pin = Pin.new

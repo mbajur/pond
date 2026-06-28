@@ -127,6 +127,9 @@ GEM
       thor (~> 1.0)
     childprocess (5.1.0)
       logger (~> 1.5)
+    color (2.2.0)
+    colorscore (0.0.5)
+      color
     commonmarker (2.8.2-aarch64-linux)
     commonmarker (2.8.2-aarch64-linux-musl)
     commonmarker (2.8.2-arm-linux)
@@ -547,6 +550,7 @@ DEPENDENCIES
   brakeman
   bullet
   bundler-audit
+  colorscore (~> 0.0.5)
   commonmarker (~> 2.8)
   data_migrate (~> 11.3)
   debug

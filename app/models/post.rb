@@ -6,20 +6,21 @@ class Post < ApplicationRecord
   belongs_to :collection, optional: true
   belongs_to :user
 
-  # This is defined here only because Url has it yet we need it to be able to search by title in Post::Url.
-  # This is a bit of a hack but it works for now.
-  belongs_to :url_cache, optional: true
-
   search_scope :search do
-    attributes title: "url_cache.title", url: "url_cache.url", user: "user.username"
-    attributes :content
-    attributes :title
+    attributes user: "user.username"
+    attributes :content, :title, :url
   end
 
   # We have to mve that here to be able to join it on searches. Not ideal but it works for now.
   has_one_attached :screenshot do |attachable|
     attachable.variant :square_350, resize_to_fit: [ 350, 350 ], format: :jpg, saver: { quality: 80 }, preprocessed: true
   end
+
+  has_one_attached :thumb do |attachable|
+    attachable.variant :square_350, resize_to_fit: [ 350, 350 ], saver: { quality: 80 }, preprocessed: true
+  end
+
+  validates :thumb, content_type: { in: [ :png, :jpeg, :gif ], spoofing_protection: true }
 
   after_commit :refresh_caches
 

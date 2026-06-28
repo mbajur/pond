@@ -7,7 +7,6 @@ class UrlThumbnailer::DefaultHandler
   def initialize(post:, preflight:, logger: Rails.logger)
     @post = post
     @preflight = preflight
-    @url_cache = @post.url_cache
     @logger = logger
   end
 
@@ -22,11 +21,10 @@ class UrlThumbnailer::DefaultHandler
   def process_meta
     logger.info "Processing metadata for URL: #{@post.url}..."
 
-    object = LinkThumbnailer.generate(@url_cache.url)
-    @url_cache.update(
+    object = LinkThumbnailer.generate(@post.url)
+    @post.update!(
       title: object.title,
-      description: object.description,
-      refreshed_at: Time.current
+      description: object.description
     )
 
     return unless object.images.any?
@@ -40,16 +38,14 @@ class UrlThumbnailer::DefaultHandler
       io.rewind
 
       logger.info "Attaching thumbnail to URL cache for URL: #{@post.url}..."
-      @url_cache.thumb.attach(
-        io: io,
+      @post.thumb.attach(
+        io: compress_image(io),
         filename: File.basename(URI.parse(image_url).path)
       )
     rescue Faraday::ResourceNotFound, Faraday::ForbiddenError => e
       # Do not report that anywhere, there will be a lot of cases like this and we can't do much about that.
       logger.warn "Thumbnail not found at URL: #{image_url} for post URL: #{@post.url}. Error: #{e.message}"
     end
-
-    @url_cache.touch(:refreshed_at)
   end
 
   def process_screenshot
@@ -62,13 +58,13 @@ class UrlThumbnailer::DefaultHandler
     raise ResponseStatusInvalidError.new("Invalid response status: #{status}") if status != 200
 
     page.set_viewport(width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
-    sleep 2
+    sleep 5
 
     file = Tempfile.new([ "screenshot", ".png" ])
     page.screenshot(path: file.path)
 
     @post.screenshot.attach(
-      io: File.open(file.path),
+      io: compress_image(File.open(file.path)),
       filename: "screenshot.png",
       content_type: "image/png"
     )
@@ -84,6 +80,12 @@ class UrlThumbnailer::DefaultHandler
       pending_connection_errors: false,
       timeout: 240
     )
+  end
+
+  def compress_image(io)
+    image = MiniMagick::Image.read(io)
+    image.quality(80)
+    StringIO.new(image.to_blob)
   end
 
   def download_thumb(url)

@@ -9,6 +9,7 @@ module Components
 
       def view_template(&)
         Components::Posts::Card() do
+          Components::Posts::CardLink(href: post_path(@post))
           Components::Posts::CardThumb() { image }
           Components::Posts::CardPrimaryActions() do |pa|
             pa.with_primary { Components::Posts::SaveBtn(post: @post) } if authenticated?
@@ -17,7 +18,7 @@ module Components
             end
           end
           Components::Posts::CardMeta(
-            title: @post.title || @post.url_cache.title,
+            title: @post.title,
             datetime: @post.created_at,
             author: @post.user
           )
@@ -29,7 +30,7 @@ module Components
       def image
         if @post.screenshot.attached?
           screenshot_image
-        elsif @post.url_cache.thumb.attached?
+        elsif @post.thumb.attached?
           thumb_image
         end
       end
@@ -39,7 +40,7 @@ module Components
       end
 
       def thumb_image
-        img(src: rails_blob_path(@post.url_cache.thumb.variant(:square_350)), width: 350, loading: :lazy, class: "w-full h-full object-contain")
+        img(src: rails_blob_path(@post.thumb.variant(:square_350)), width: 350, loading: :lazy, class: "w-full h-full object-contain")
       end
     end
   end
