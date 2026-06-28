@@ -69,12 +69,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_26_130353) do
     t.boolean "private", default: false
     t.string "slug"
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.index ["slug"], name: "index_collections_on_slug", unique: true
     t.index ["user_id"], name: "index_collections_on_user_id"
-  end
-
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "follows", force: :cascade do |t|

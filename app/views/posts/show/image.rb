@@ -28,12 +28,12 @@ module Views
       private
 
       def image
-        image_tag(@post.files.first, class: "object-contain")
+        image_tag(@post.files.first, class: "max-h-full")
       end
 
       def source_link_wrap(&block)
         if @post.url.present?
-          link_to @post.url, rel: :nofollow, class: "max-w-full max-h-full" do
+          link_to @post.url, rel: :nofollow, class: "block h-full" do
             yield
           end
         else
