@@ -33,7 +33,7 @@ module Views
 
       def source_link_wrap(&block)
         if @post.url.present?
-          link_to @post.url, rel: :nofollow, class: "block h-full" do
+          link_to @post.url, rel: :nofollow, class: "h-full" do
             yield
           end
         else
