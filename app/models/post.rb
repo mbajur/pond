@@ -24,6 +24,7 @@ class Post < ApplicationRecord
 
   after_commit :refresh_caches
 
+  # @todo move that out of here
   def refresh_pins_cards
     pins.find_each do |pin|
       broadcast_replace_later_to(pin, :card, targets: ".meta_pin_#{pin.id}", html: Components::Pins::Pin::Meta.new(pin: pin).call)

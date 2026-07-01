@@ -32,6 +32,7 @@ class User < ApplicationRecord
 
   private
 
+  # @todo move that out of here
   def create_inbox_collection
     collections.create!(inbox: true, name: "Inbox", private: true)
   end
