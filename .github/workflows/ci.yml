@@ -22,7 +22,7 @@ jobs:
           bundler-cache: true
 
       - name: Run specs suite
-        run: bundle exec rspec --format documentation --out coverage/coverage.xml
+        run: bundle exec rspec --format RspecJunitFormatter --out coverage/coverage.xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
