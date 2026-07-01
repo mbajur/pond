@@ -1,6 +1,6 @@
 module AuthCode::Code
   CODE_SUBSTITUTIONS = { "O" => "0", "I" => "1", "L" => "1" }.freeze
-  BASE32_ALPHABET = ("0".."9").to_a + ("A".."Z").to_a - ["I", "L", "O", "U"]
+  BASE32_ALPHABET = ("0".."9").to_a + ("A".."Z").to_a - [ "I", "L", "O", "U" ]
 
   class << self
     # At the time of implementation, PPP is not on rails master and base32 method is not available.

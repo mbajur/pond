@@ -12,8 +12,8 @@ class Views::Sessions::Create < Views::Base
       }
 
       form_with url: verify_auth_code_path, method: :post, class: "flex flex-col gap-4 mt-6" do |f|
-        div(class: 'mb-3') do
-          f.text_field(:auth_code, placeholder: '••••••', autocomplete: "one-time-code", required: true, autofocus: true, class: input_classes)
+        div(class: "mb-3") do
+          f.text_field(:auth_code, placeholder: "••••••", autocomplete: "one-time-code", required: true, autofocus: true, class: input_classes)
         end
 
         Button(type: :submit) { "Verify the code" }
