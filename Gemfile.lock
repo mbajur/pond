@@ -192,7 +192,7 @@ GEM
     hashie (5.1.0)
       logger
     hirb (0.7.3)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     image_info (1.2.2)
       addressable (~> 2.0)
@@ -218,7 +218,7 @@ GEM
       activesupport (>= 7.0.0)
     jmespath (1.6.2)
     json (2.20.0)
-    kamal (2.11.0)
+    kamal (2.12.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
@@ -297,7 +297,7 @@ GEM
       net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.1)
       net-protocol
-    net-ssh (7.3.2)
+    net-ssh (7.3.3)
     net_http_timeout_errors (1.0.0)
     nio4r (2.7.5)
     nokogiri (1.19.4-aarch64-linux-gnu)
