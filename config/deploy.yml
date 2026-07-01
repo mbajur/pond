@@ -7,11 +7,11 @@ image: mbajur/pppond
 # Deploy to these servers.
 servers:
   web:
-    - 209.38.211.5
-  # job:
-  #   hosts:
-  #     - 192.168.0.1
-  #   cmd: bin/jobs
+    - 167.233.150.127
+  job:
+    hosts:
+      - 167.233.150.127
+    cmd: bin/jobs
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
 # If used with Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
@@ -22,7 +22,7 @@ servers:
 #
 proxy:
   ssl: true
-  host: ppp.mbajur.com
+  host: pond.st
 
 # Where you keep your container images.
 registry:
@@ -39,7 +39,7 @@ env:
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
-    SOLID_QUEUE_IN_PUMA: true
+    # SOLID_QUEUE_IN_PUMA: true
 
     # Set number of processes dedicated to Solid Queue (default: 1)
     # JOB_CONCURRENCY: 3
@@ -49,6 +49,11 @@ env:
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
+
+    # Pond configs
+    SCREENSHOTER_WS_URL: "ws://167.233.150.127:3000?token=LDDx1Q85lbj0"
+    HOST: pond.st
+    CDN_HOST: pond-as.global.ssl.fastly.net
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal logs -r job" will tail logs from the first server in the job section.
@@ -112,7 +117,7 @@ builder:
 # accessories:
 #   db:
 #     image: postgres:16.2 # Use the correct version for your app
-#     host: 209.38.211.5
+#     host: 167.233.150.127
 #     env:
 #       clear:
 #         POSTGRES_USER: "pppond"
@@ -124,13 +129,18 @@ builder:
 accessories:
   browser:
     image: ghcr.io/browserless/chromium:latest
-    host: 209.38.211.5
-    port: 9223
+    host: 167.233.150.127
+    port: 3000
+    options:
+      memory: 1536m
+      memory-swap: 2g
+      cpus: "1.0"
     env:
       clear:
-        TOKEN: ""
-        CONCURRENT: 5
+        TOKEN: "LDDx1Q85lbj0"
+        CONCURRENT: 2
         TIMEOUT: 60000
-        MAX_QUEUE_LENGTH: 20
-        CORS: "true"
-        ENABLE_DEBUGGER: "true"
+        MAX_QUEUE_LENGTH: 10
+        CORS: "false"
+        ENABLE_DEBUGGER: "false"
+        DISABLE_AUTO_SET_DOWNLOAD_BEHAVIOR: "true"
