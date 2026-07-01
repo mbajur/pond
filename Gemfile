@@ -57,8 +57,8 @@ group :development, :test do
 
   gem "rspec-rails", "~> 8.0.0"
   gem "simplecov", require: false, group: :test
+  gem "simplecov-cobertura"
   gem "factory_bot_rails"
-  gem "rspec_junit_formatter"
 end
 
 group :test do
