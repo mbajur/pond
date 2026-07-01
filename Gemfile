@@ -76,7 +76,7 @@ group :production do
   gem "solid_errors", "~> 0.7.0"
 end
 
-gem "ruby_ui", "~> 1.2", group: :development, require: false
+gem "ruby_ui", "~> 1.4", group: :development, require: false
 
 gem "phlex-rails", "~> 2.4"
 
