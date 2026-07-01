@@ -22,7 +22,15 @@ jobs:
           bundler-cache: true
 
       - name: Run specs suite
-        run: bundle exec rspec --format documentation
+        run: bundle exec rspec --format documentation --out coverage/coverage.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage/coverage.xml
+          flags: rspec
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
 
   scan_ruby:
     runs-on: ubuntu-latest
