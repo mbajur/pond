@@ -64,6 +64,8 @@ end
 group :test do
   gem "shoulda-matchers", "~> 8.0"
   gem "database_cleaner-active_record"
+  gem "turnip"
+  gem "capybara"
 end
 
 group :development do
