@@ -3,15 +3,13 @@ module ProfileSteps
     visit user_path(username)
   end
 
-  step "I click on the follow button" do
-    click_button "Follow"
+  step "I should see :button button" do |button|
+    expect(page).to have_button(button)
   end
 
-  step "I click on the unfollow button" do
-    click_button "Unfollow"
-  end
-
-  step "I should see unfollow button" do
-    expect(page).to have_button("Unfollow")
+  step "I should see :text in profile header" do |text|
+    within("#page-header") do
+      expect(page).to have_content(text)
+    end
   end
 end

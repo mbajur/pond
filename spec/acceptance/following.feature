@@ -14,13 +14,13 @@ Feature: Feed
     Then I should not see "User1 collection" in the feed
     Then I should not see "User2 collection" in the feed
     When I visit "@user" profile page
-    And I click on the follow button
-    Then I should see unfollow button
+    And I click on the "Follow" button
+    Then I should see "Unfollow" button
     When I visit feed page
     Then I should see "User collection" in the feed
     Then I should not see "User2 collection" in the feed
     When I visit "@user" profile page
-    And I click on the unfollow button
+    And I click on the "Unfollow" button
     When I visit feed page
     Then I should not see "User collection" in the feed
     Then I should not see "User2 collection" in the feed
