@@ -9,7 +9,7 @@ module PostSteps
   step "I click on the :post_title post thumb" do |post_title|
     card = find('div.pin', text: post_title)
     thumb = card.find('a.pin-link')
-    thumb.click
+    thumb.trigger("click")
   end
 
   step "I should see :post_url post page" do |post_url|
