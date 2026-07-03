@@ -19,6 +19,10 @@ module MiscSteps
     select option, from: select_box
   end
 
+  step "I attach :file file in :input input" do |file, input|
+    attach_file input, Rails.root.join("spec/fixtures/files/#{file}")
+  end
+
   step "I should not see :button button" do |button|
     expect(page).not_to have_button(button)
   end
