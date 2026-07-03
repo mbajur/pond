@@ -8,3 +8,4 @@ RSpec.configure { |c| c.include FeedSteps }
 RSpec.configure { |c| c.include ProfileSteps }
 RSpec.configure { |c| c.include UserSteps }
 RSpec.configure { |c| c.include PostSteps }
+RSpec.configure { |c| c.include CollectionSteps }

@@ -11,8 +11,8 @@ Feature: Profile
     And I fill in "Description" with "Changed Bio"
     And I check "user_private" checkbox
     And I click on the "Update profile" button
-    Then I should see "Changed Bio" in profile header
-    Then I should see "private" in profile header
+    Then I should see "Changed Bio" in page header
+    Then I should see "private" in page header
 
   Scenario: visiting other user profile as logged in user
     Given user with "user@example.com" email address and "user" username exists

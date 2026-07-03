@@ -2,7 +2,7 @@ class CollectionsController < ApplicationController
   before_action :authenticate_user!, only: %i[update destroy]
 
   def index
-    ensure_public!
+    ensure_public_profile!
     authorize Collection
 
     add_breadcrumb(find_user.to_s, user_path(find_user))
@@ -15,7 +15,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    ensure_public!
+    ensure_public_profile!
     @collection = find_collection
     authorize @collection
 
@@ -93,7 +93,7 @@ class CollectionsController < ApplicationController
     @find_collection ||= policy_scope(find_user.collections).find_by_slug!(params[:slug])
   end
 
-  def ensure_public!
+  def ensure_public_profile!
     if find_user.private? && (!authenticated? || current_user.id != find_user.id)
       raise UserProfileIsPrivateError.new("This user's profile is private.")
     end
