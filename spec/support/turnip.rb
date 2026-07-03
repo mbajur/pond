@@ -9,3 +9,4 @@ RSpec.configure { |c| c.include ProfileSteps }
 RSpec.configure { |c| c.include UserSteps }
 RSpec.configure { |c| c.include PostSteps }
 RSpec.configure { |c| c.include CollectionSteps }
+RSpec.configure { |c| c.include ConnectionSteps }

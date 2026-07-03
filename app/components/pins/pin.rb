@@ -9,7 +9,7 @@ module Components
       end
 
       def view_template(&)
-        div(class: "flex flex-col group relative", id: dom_id(@pin)) do
+        div(class: "flex flex-col group relative pin", id: dom_id(@pin)) do
           turbo_stream_from(@pin, :card)
 
           if @pin.pinable_type == "Post"

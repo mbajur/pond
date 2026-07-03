@@ -5,8 +5,8 @@ Feature: Feed
     Given user with "user2@example.com" email address and "user2" username exists
     Given "@user" has "User collection" collection
     Given "@user2" has "User2 collection" collection
-    Given "https://example.com" URL post is created by "@user" on "User collection" collection
-    Given "https://example2.com" URL post is created by "@user2" on "User2 collection" collection
+    Given "https://example.com" URL post by "@user" on "User collection" collection exists
+    Given "https://example2.com" URL post by "@user2" on "User2 collection" collection exists
     And "@admin" is signed in
 
   Scenario: following and unfollowing users

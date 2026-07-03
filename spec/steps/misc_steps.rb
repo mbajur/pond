@@ -15,6 +15,10 @@ module MiscSteps
     check checkbox, allow_label_click: true
   end
 
+  step "I select :option from :select_box select box" do |option, select_box|
+    select option, from: select_box
+  end
+
   step "I should not see :button button" do |button|
     expect(page).not_to have_button(button)
   end
