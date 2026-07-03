@@ -66,6 +66,8 @@ group :test do
   gem "database_cleaner-active_record"
   gem "turnip"
   gem "capybara"
+  gem "capybara-screenshot"
+  gem "cuprite"
 end
 
 group :development do

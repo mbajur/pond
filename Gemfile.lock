@@ -134,6 +134,9 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    capybara-screenshot (1.0.27)
+      capybara (>= 1.0, < 4)
+      launchy
     childprocess (5.1.0)
       logger (~> 1.5)
     color (2.2.0)
@@ -151,6 +154,9 @@ GEM
     cucumber-messages (32.3.1)
     cuke_modeler (3.29.0)
       cucumber-gherkin (< 40.0)
+    cuprite (0.17)
+      capybara (~> 3.0)
+      ferrum (~> 0.17.0)
     data_migrate (11.3.1)
       activerecord (>= 6.1)
       railties (>= 6.1)
@@ -665,8 +671,10 @@ DEPENDENCIES
   bullet
   bundler-audit
   capybara
+  capybara-screenshot
   color (~> 2.2)
   commonmarker (~> 2.8)
+  cuprite
   data_migrate (~> 11.3)
   database_cleaner-active_record
   debug
