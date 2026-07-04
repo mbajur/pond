@@ -31,6 +31,10 @@ module MiscSteps
     expect(page).to have_content(text)
   end
 
+  step "I should see :link link" do |link|
+    expect(page).to have_link(link)
+  end
+
   step "I should not see :text text" do |text|
     expect(page).not_to have_content(text)
   end

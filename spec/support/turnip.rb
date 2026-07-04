@@ -10,3 +10,5 @@ RSpec.configure { |c| c.include UserSteps }
 RSpec.configure { |c| c.include PostSteps }
 RSpec.configure { |c| c.include CollectionSteps }
 RSpec.configure { |c| c.include ConnectionSteps }
+RSpec.configure { |c| c.include DiscoverSteps }
+RSpec.configure { |c| c.include SearchSteps }
