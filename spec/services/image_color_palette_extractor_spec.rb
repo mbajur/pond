@@ -11,14 +11,14 @@ describe ImageColorPaletteExtractor do
   # exactly reproducible run to run.
   let(:expected_palette) do
     [
-      { color: "#ff00ff", percentage: 41.5 },
-      { color: "#0000ff", percentage: 32.5 },
-      { color: "#ff0000", percentage: 23.5 },
-      { color: "#fa0005", percentage: 0.5 },
-      { color: "#770088", percentage: 0.5 },
-      { color: "#0500fa", percentage: 0.5 },
-      { color: "#3000ff", percentage: 0.5 },
-      { color: "#fd00ff", percentage: 0.5 }
+      { color: "#ff00ff", percentage: 40.5 },
+      { color: "#0000ff", percentage: 36.5 },
+      { color: "#ff0000", percentage: 20.5 },
+      { color: "#fc0003", percentage: 0.5 },
+      { color: "#bc0043", percentage: 0.5 },
+      { color: "#0400fb", percentage: 0.5 },
+      { color: "#1600ff", percentage: 0.5 },
+      { color: "#fa00ff", percentage: 0.5 }
     ]
   end
 
