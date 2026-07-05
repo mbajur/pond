@@ -61,10 +61,10 @@ module Image::Operation
 
     def encode_original(image, original_path)
       case File.extname(original_path).downcase
-      when ".png"         then image.write_to_buffer(".png")
-      when ".gif"         then image.write_to_buffer(".gif")
-      when ".webp"        then image.write_to_buffer(".webp[Q=85]")
-      else                     image.write_to_buffer(".jpg[Q=85]")
+      when ".png"  then image.write_to_buffer(".png")
+      when ".gif"  then image.write_to_buffer(".gif")
+      when ".webp" then image.write_to_buffer(".webp[Q=85]")
+      else              image.write_to_buffer(".jpg[Q=85]")
       end
     end
   end

@@ -32,6 +32,10 @@ class Views::Collections::Show < Views::Base
           end
 
           header.with_actions do
+            if policy(@collection).follow?
+              Components::FollowBtn(followable: @collection)
+            end
+
             if policy(@collection).connect?
               data = {
                 controller: "connect-btn",

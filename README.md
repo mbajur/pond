@@ -37,6 +37,8 @@ If the app has been set up already and you want to continue working on it:
     $ bundle exec rails db:migrate
     $ bin/dev
 
+Then go to http://pond.localhost:3000/join and sign-in with email@example.com email address.
+
 #### Browserless
 
 It you want to run browserless/chromium locally for screenshots grabbing, run:
