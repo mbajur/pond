@@ -9,7 +9,8 @@ class FeedsController < ApplicationController
 
     @collections = policy_scope(
       Collection.joins(:user)
-                .where(users: { id: current_user.following.select(:id) + [ current_user.id ] })
+                .where(users: { id: current_user.following_users.pluck(:id) + [ current_user.id ] })
+                .or(Collection.where(id: current_user.following_collections.pluck(:id)))
                 .where(pins_count: 1..)
                 .order(changed_at: :desc)
                 .includes(:user)

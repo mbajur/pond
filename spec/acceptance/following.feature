@@ -1,0 +1,44 @@
+Feature: Feed
+  Background:
+    Given user with "admin@example.com" email address and "admin" username exists
+    Given user with "user@example.com" email address and "user" username exists
+    Given user with "user2@example.com" email address and "user2" username exists
+    Given "@user" has "User collection" collection
+    Given "@user2" has "User2 collection" collection
+    Given "https://example.com" URL post by "@user" on "User collection" collection exists
+    Given "https://example2.com" URL post by "@user2" on "User2 collection" collection exists
+    And "@admin" is signed in
+
+  Scenario: following and unfollowing users
+    When I visit feed page
+    Then I should not see "User1 collection" in the feed
+    Then I should not see "User2 collection" in the feed
+    When I visit "@user" profile page
+    And I click on the "Follow" button
+    Then I should see "Unfollow" button
+    When I visit feed page
+    Then I should see "User collection" in the feed
+    Then I should not see "User2 collection" in the feed
+    When I visit "@user" profile page
+    And I click on the "Unfollow" button
+    When I visit feed page
+    Then I should not see "User collection" in the feed
+    Then I should not see "User2 collection" in the feed
+
+  Scenario: following and unfollowing collections
+    When I visit feed page
+    Then I should not see "User1 collection" in the feed
+    Then I should not see "User2 collection" in the feed
+    When I visit "@user" profile page
+    And I click on the "User collection" link
+    And I click on the "Follow" button
+    Then I should see "Unfollow" button
+    When I visit feed page
+    Then I should see "User collection" in the feed
+    Then I should not see "User2 collection" in the feed
+    When I visit "@user" profile page
+    And I click on the "User collection" link
+    And I click on the "Unfollow" button
+    When I visit feed page
+    Then I should not see "User collection" in the feed
+    Then I should not see "User2 collection" in the feed

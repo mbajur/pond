@@ -1,6 +1,8 @@
 # ● pond
 
-An ActivityPub-powered federated platform for aggregating links, discovering ideas, and gathering inspiration.
+[![codecov](https://codecov.io/gh/mbajur/pond/graph/badge.svg?token=tjN1U1w5yk)](https://codecov.io/gh/mbajur/pond)
+
+Federated social platform for aggregating links, discovering ideas, and gathering inspiration. Powered by ActivityPub.
 
 <img width="3204" height="2416" alt="image" src="https://github.com/user-attachments/assets/c0accedc-24e0-4b2d-907e-e27c29194b53" />
 
@@ -34,6 +36,8 @@ If the app has been set up already and you want to continue working on it:
 
     $ bundle exec rails db:migrate
     $ bin/dev
+
+Then go to http://pond.localhost:3000/join and sign-in with email@example.com email address.
 
 #### Browserless
 

@@ -57,12 +57,17 @@ group :development, :test do
 
   gem "rspec-rails", "~> 8.0.0"
   gem "simplecov", require: false, group: :test
+  gem "simplecov-cobertura"
   gem "factory_bot_rails"
-  gem "rspec_junit_formatter"
 end
 
 group :test do
   gem "shoulda-matchers", "~> 8.0"
+  gem "database_cleaner-active_record"
+  gem "turnip"
+  gem "capybara"
+  gem "capybara-screenshot"
+  gem "cuprite"
 end
 
 group :development do
@@ -76,7 +81,7 @@ group :production do
   gem "solid_errors", "~> 0.7.0"
 end
 
-gem "ruby_ui", "~> 1.2", group: :development, require: false
+gem "ruby_ui", "~> 1.4", group: :development, require: false
 
 gem "phlex-rails", "~> 2.4"
 

@@ -1,6 +1,6 @@
 <turbo-stream action="replace" target="<%= dom_id(@user, :follow_btn) %>">
   <template>
-    <%= render Components::Users::FollowBtn.new(user: @user) %>
+    <%= render Components::FollowBtn.new(followable: @user) %>
   </template>
 </turbo-stream>
 
