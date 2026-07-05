@@ -29,7 +29,7 @@ module AuthCode::Code
     end
 
     def remove_invalid_characters(code)
-      code.gsub(/[^#{SecureRandom::BASE32_ALPHABET.join}]/, "")
+      code.gsub(/[^#{BASE32_ALPHABET.join}]/, "")
     end
   end
 end

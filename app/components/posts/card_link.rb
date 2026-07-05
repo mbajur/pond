@@ -6,7 +6,7 @@ module Components
       end
 
       def view_template(&)
-        a(href: @href, class: "absolute inset-0 z-8")
+        a(href: @href, class: "absolute inset-0 z-8 pin-link")
       end
     end
   end

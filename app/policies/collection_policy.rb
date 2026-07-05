@@ -27,6 +27,14 @@ class CollectionPolicy < ApplicationPolicy
     user.present? && record.user_id == user.id
   end
 
+  def follow?
+    user.present? && record.user_id != user.id
+  end
+
+  def unfollow?
+    user.present? && record.user_id != user.id
+  end
+
   class Scope
     def initialize(user, scope)
       @user  = user

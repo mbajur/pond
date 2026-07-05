@@ -2,7 +2,7 @@ class CollectionsController < ApplicationController
   before_action :authenticate_user!, only: %i[update destroy]
 
   def index
-    ensure_public!
+    ensure_public_profile!
     authorize Collection
 
     add_breadcrumb(find_user.to_s, user_path(find_user))
@@ -15,7 +15,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    ensure_public!
+    ensure_public_profile!
     @collection = find_collection
     authorize @collection
 
@@ -79,6 +79,30 @@ class CollectionsController < ApplicationController
     redirect_to user_path(current_user), notice: "Collection deleted"
   end
 
+  def follow
+    @collection = policy_scope(Collection).find_by_slug!(params[:slug])
+    authorize @collection, :follow?
+
+    Users::Follower.new(actor: current_user, target: @collection).call
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You are now following #{@collection.user.name}." }
+    end
+  end
+
+  def unfollow
+    @collection = policy_scope(Collection).find_by_slug!(params[:slug])
+    authorize @collection, :unfollow?
+
+    Users::Unfollower.new(actor: current_user, target: @collection).call
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You have unfollowed #{@collection.user.name}." }
+    end
+  end
+
   private
 
   def collection_params
@@ -93,7 +117,7 @@ class CollectionsController < ApplicationController
     @find_collection ||= policy_scope(find_user.collections).find_by_slug!(params[:slug])
   end
 
-  def ensure_public!
+  def ensure_public_profile!
     if find_user.private? && (!authenticated? || current_user.id != find_user.id)
       raise UserProfileIsPrivateError.new("This user's profile is private.")
     end
