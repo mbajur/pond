@@ -1,0 +1,9 @@
+<turbo-stream action="replace" target="<%= dom_id(@collection, :follow_btn) %>">
+  <template>
+    <%= render Components::FollowBtn.new(followable: @collection) %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="toast" target="ruby-ui-toaster" variant="success" title="Good!" description="You are now following <%= @collection.user.to_s %>">
+  <template></template>
+</turbo-stream>
