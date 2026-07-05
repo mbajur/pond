@@ -2,3 +2,4 @@ screenshoter_enabled: true
 screenshoter_ws_url: "ws://localhost:9223/"
 admin_user: admin
 admin_password: admin
+host: pond.st

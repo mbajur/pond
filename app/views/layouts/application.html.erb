@@ -5,13 +5,10 @@
   </head>
 
   <body>
-    <%= render Components::Nav.new %>
-
-    <main class="container mx-auto my-28 px-5 flex">
-      <%= yield %>
-    </main>
+    <%= yield %>
 
     <%= render RubyUI::ToastRegion.new(flash: flash.to_h) %>
     <%= render Components::ConnectDialog.new %>
+    <%= render Components::RemoteDialog.new %>
   </body>
 </html>

@@ -6,7 +6,7 @@ class Pin < ApplicationRecord
   end
 
   belongs_to :pinable, polymorphic: true
-  belongs_to :collection, counter_cache: true
+  belongs_to :collection, counter_cache: true, touch: true
   belongs_to :user
 
   delegated_type :pinable, types: %w[Post]

@@ -34,6 +34,13 @@ class PinsController < ApplicationController
     end
   end
 
+  def secondary_actions
+    @pin = policy_scope(Pin).find(params[:id])
+    authorize @pin
+
+    render Views::Pins::SecondaryActions.new(pin: @pin)
+  end
+
   def destroy
     authorize @pin
     @pin.destroy!
@@ -57,8 +64,8 @@ class PinsController < ApplicationController
   def find_pinable
     if params[:post_id]
       @pinable = policy_scope(Post).find(params[:post_id])
-    elsif params[:collection_id]
-      @pinable = policy_scope(Collection).find(params[:collection_id])
+    elsif params[:collection_slug]
+      @pinable = policy_scope(Collection).find_by_slug!(params[:collection_slug])
     else
       raise ActiveRecord::RecordNotFound, "Pinable not found"
     end

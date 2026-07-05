@@ -6,10 +6,15 @@ module Components
       end
 
       def view_template(&)
-        render Components::Pins::Pin::Thumb.new(pin: @pin)
-        render Components::Pins::Pin::SecondaryActions.new(pin: @pin) if authenticated?
-        render Components::Posts::PinContent::PrimaryActions.new(pin: @pin)
-        render Components::Pins::Pin::Meta.new(pin: @pin)
+        if @pin.pinable.is_a?(Post::Url)
+          render Components::Posts::Url::PinContent.new(pin: @pin)
+        elsif @pin.pinable.is_a?(Post::Text)
+          render Components::Posts::Text::PinContent.new(pin: @pin)
+        elsif @pin.pinable.is_a?(Post::Image)
+          render Components::Posts::Image::PinContent.new(pin: @pin)
+        else
+          raise "Unknown pinable type #{@pin.pinable_type}"
+        end
       end
     end
   end

@@ -1,4 +1,5 @@
-<title><%= content_for(:title) || "Pppin" %></title>
+<%= display_meta_tags site: "pond ●", separator: " / ", reverse: true %>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="application-name" content="Pppin">
@@ -18,4 +19,6 @@
 
 <%# Includes all stylesheet files in app/assets/stylesheets %>
 <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "marksmith" %>
+
 <%= javascript_importmap_tags %>

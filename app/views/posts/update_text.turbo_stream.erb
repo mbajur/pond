@@ -1,0 +1,18 @@
+<% if @post.errors.any? %>
+  <turbo-stream action="toast" target="ruby-ui-toaster" variant="error" title="Error" description="<%= @post.errors.full_messages&.to_sentence %>">
+    <template></template>
+  </turbo-stream>
+<% else %>
+  <turbo-stream action="toast" target="ruby-ui-toaster" variant="success" title="All good!" description="Post was successfully saved.">
+    <template></template>
+  </turbo-stream>
+
+   <turbo-stream action="close_dialog" target="remote-dialog">
+    <template></template>
+  </turbo-stream>
+
+  <turbo-stream action="refresh">
+    <template>
+    </template>
+  </turbo-stream>
+<% end %>

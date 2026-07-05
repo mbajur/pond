@@ -54,12 +54,27 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "rspec-rails", "~> 8.0.0"
+  gem "simplecov", require: false, group: :test
+  gem "simplecov-cobertura"
+  gem "factory_bot_rails"
+end
+
+group :test do
+  gem "shoulda-matchers", "~> 8.0"
+  gem "database_cleaner-active_record"
+  gem "turnip"
+  gem "capybara"
+  gem "capybara-screenshot"
+  gem "cuprite"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "bullet"
+  gem "letter_opener"
 end
 
 group :production do
@@ -83,6 +98,8 @@ gem "mini_magick", "~> 5.3"
 gem "pundit", "~> 2.5"
 
 gem "faraday", "~> 2.14"
+gem "faraday-retry"
+gem "faraday-follow_redirects", "~> 0.5.0"
 
 gem "validate_url", "~> 1.0"
 
@@ -93,3 +110,26 @@ gem "figaro", "~> 1.3"
 gem "mission_control-jobs", "~> 1.1"
 
 gem "store_model", "~> 4.6"
+
+gem "active_storage_validations", "~> 3.0"
+
+gem "pagy", "~> 43.5"
+
+gem "marksmith", "~> 0.5.2"
+gem "commonmarker", "~> 2.8"
+
+gem "data_migrate", "~> 11.3"
+
+gem "active_storage-blurhash"
+
+gem "aws-sdk-s3", require: false
+
+gem "search_cop", "~> 1.5"
+
+gem "meta-tags", "~> 2.23"
+
+gem "kmeans-clusterer", "~> 0.11.4"
+
+gem "color", "~> 2.2"
+
+gem "trailblazer-rails", "~> 2.4"

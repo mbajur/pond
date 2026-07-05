@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_12_190743) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_26_130353) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -67,9 +67,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_12_190743) do
     t.string "name"
     t.integer "pins_count", default: 0
     t.boolean "private", default: false
+    t.string "slug"
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.index ["slug"], name: "index_collections_on_slug", unique: true
     t.index ["user_id"], name: "index_collections_on_user_id"
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "follows", force: :cascade do |t|
@@ -97,13 +102,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_12_190743) do
 
   create_table "posts", force: :cascade do |t|
     t.integer "collection_id"
+    t.text "content"
     t.datetime "created_at", null: false
+    t.text "description"
     t.string "title"
+    t.string "type", default: "Post::Url", null: false
     t.datetime "updated_at", null: false
     t.string "url"
     t.integer "url_cache_id"
+    t.integer "user_id"
     t.index ["collection_id"], name: "index_posts_on_collection_id"
     t.index ["url_cache_id"], name: "index_posts_on_url_cache_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -132,6 +142,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_12_190743) do
     t.text "description"
     t.string "email_address", null: false
     t.string "name"
+    t.datetime "premium_until"
     t.boolean "private", default: true
     t.datetime "updated_at", null: false
     t.string "username", null: false
@@ -148,5 +159,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_12_190743) do
   add_foreign_key "pins", "users"
   add_foreign_key "posts", "collections"
   add_foreign_key "posts", "url_caches", column: "url_cache_id"
+  add_foreign_key "posts", "users"
   add_foreign_key "sessions", "users"
 end

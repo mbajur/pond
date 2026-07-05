@@ -3,24 +3,16 @@
     <template></template>
   </turbo-stream>
 <% else %>
-  <turbo-stream action="toast" target="ruby-ui-toaster" variant="success" title="All good!" description="Post was successfully saved.">
+  <turbo-stream action="toast" target="ruby-ui-toaster" variant="success" title="All good!" description="Post was successfully created.">
     <template></template>
   </turbo-stream>
 
-   <turbo-stream action="close_dialog" target="add-pin-dialog">
+   <turbo-stream action="close_dialog" target="remote-dialog">
     <template></template>
   </turbo-stream>
 
-  <% if @referrer_action[:controller] == "collections" && @referrer_action[:action] == "index" %>
-    <turbo-stream action="update" target="<%= dom_id(@pin.collection) %>">
-      <template>
-        <%= render Components::Collections::Collection.new(collection: @pin.collection) %>
-      </template>
-    </turbo-stream>
-  <% elsif @referrer_action[:controller] == "collections" && @referrer_action[:action] == "show" %>
-    <turbo-stream action="refresh">
-      <template>
-      </template>
-    </turbo-stream>
-  <% end %>
+  <turbo-stream action="refresh">
+    <template>
+    </template>
+  </turbo-stream>
 <% end %>
