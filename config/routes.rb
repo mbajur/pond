@@ -48,6 +48,9 @@ Rails.application.routes.draw do
   end
 
   resources :collections, only: [ :create, :update, :destroy ], param: :slug do
+    post :follow, on: :member
+    delete :unfollow, on: :member
+
     resource :pins, only: [ :new, :create, :show ]
   end
 

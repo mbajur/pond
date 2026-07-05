@@ -9,7 +9,8 @@ describe User, type: :model do
   it { is_expected.to have_many(:follows_as_actor) }
   it { is_expected.to have_many(:follows_as_target) }
   it { is_expected.to have_many(:followers) }
-  it { is_expected.to have_many(:following) }
+  it { is_expected.to have_many(:following_users) }
+  it { is_expected.to have_many(:following_collections) }
 
   describe ".find_by_username!" do
     let!(:user) { create(:user, username: "alice") }

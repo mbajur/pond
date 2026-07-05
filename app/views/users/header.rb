@@ -14,7 +14,7 @@ module Views
 
           header.with_actions do
             Components::Users::EditBtn(user: @user) if policy(@user).edit?
-            Components::Users::FollowBtn(user: @user) if policy(@user).follow?
+            Components::FollowBtn(followable: @user) if policy(@user).follow?
           end
         end
 

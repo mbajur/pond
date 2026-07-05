@@ -79,6 +79,30 @@ class CollectionsController < ApplicationController
     redirect_to user_path(current_user), notice: "Collection deleted"
   end
 
+  def follow
+    @collection = policy_scope(Collection).find_by_slug!(params[:slug])
+    authorize @collection, :follow?
+
+    Users::Follower.new(actor: current_user, target: @collection).call
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You are now following #{@collection.user.name}." }
+    end
+  end
+
+  def unfollow
+    @collection = policy_scope(Collection).find_by_slug!(params[:slug])
+    authorize @collection, :unfollow?
+
+    Users::Unfollower.new(actor: current_user, target: @collection).call
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You have unfollowed #{@collection.user.name}." }
+    end
+  end
+
   private
 
   def collection_params
