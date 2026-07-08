@@ -6,7 +6,7 @@ module Components
       end
 
       def view_template(&)
-        Link(href: @url, variant: :primary, rel: :nofollow) { "Source ↗" }
+        Link(href: @url, size: :sm, variant: :primary, rel: :nofollow) { "Source ↗" }
       end
     end
   end

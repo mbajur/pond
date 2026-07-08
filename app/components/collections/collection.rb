@@ -3,6 +3,7 @@ module Components
     class Collection < Components::Base
       include Phlex::Rails::Helpers::DOMID
       include Phlex::Rails::Helpers::SimpleFormat
+      include Phlex::Rails::Helpers::TurboStreamFrom
 
       def initialize(collection:, opts: {})
         @id = opts[:id]
@@ -13,6 +14,8 @@ module Components
 
       def view_template(&)
         cache(@collection) do
+          turbo_stream_from(@collection)
+
           div(class: "mb-6", id: @id || dom_id(@collection)) do
             div(class: "grid grid-cols-12 gap-4 lg:gap-9 w-full") do
               div(class: "col-span-12 lg:col-span-3") do

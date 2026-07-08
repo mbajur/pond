@@ -6,6 +6,7 @@ class Views::Collections::Show < Views::Base
   include Phlex::Rails::Helpers::DOMID
   include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::SimpleFormat
+  include Phlex::Rails::Helpers::TurboStreamFrom
 
   def initialize(collection:, pins:, pagy:)
     @collection = collection
@@ -15,6 +16,8 @@ class Views::Collections::Show < Views::Base
 
   def view_template
     Components::PageWrap() do
+      turbo_stream_from(@collection)
+
       div(class: "w-full") do
         render Components::Ui::PageHeader.new do |header|
           header.with_primary do
@@ -37,13 +40,7 @@ class Views::Collections::Show < Views::Base
             end
 
             if policy(@collection).connect?
-              data = {
-                controller: "connect-btn",
-                action: "click->connect-btn#openDialog",
-                connect_btn_url_value: new_collection_pins_path(@collection)
-              }
-
-              Button(data: data, variant: :secondary, size: :sm) { "Connect" }
+              Components::Collections::SaveBtn(collection: @collection)
             end
 
             if policy(@collection).update?

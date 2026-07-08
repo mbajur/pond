@@ -9,14 +9,10 @@ module Components
       end
 
       def view_template(&)
-        div(class: "flex flex-col group relative pin", id: dom_id(@pin)) do
-          turbo_stream_from(@pin, :card)
-
-          if @pin.pinable_type == "Post"
-            render Components::Posts::PinContent.new(pin: @pin)
-          elsif @pin.pinable_type == "Collection"
-            render Components::Collections::PinContent.new(pin: @pin)
-          end
+        if @pin.pinable_type == "Post"
+          render Components::Posts::CardFactory.new(@pin.pinable, context_menu: { id: dom_id(@pin, :secondary_actions), url: secondary_actions_pin_path(@pin) })
+        elsif @pin.pinable_type == "Collection"
+          render Components::Collections::Card.new(@pin.pinable, pin: @pin, context_menu: { id: dom_id(@pin, :secondary_actions), url: secondary_actions_pin_path(@pin) })
         end
       end
     end

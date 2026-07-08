@@ -1,8 +1,9 @@
 module Components
   module Posts
     class SaveBtn < Components::Base
-      def initialize(post:)
+      def initialize(post:, **opts)
         @post = post
+        @size = opts[:size] || :md
       end
 
       def view_template(&)
@@ -12,7 +13,7 @@ module Components
           connect_btn_url_value: new_post_pins_path(@post)
         }
 
-        Button(data: data) { "Connect" }
+        Button(data: data, size: @size) { "Connect" }
       end
     end
   end
