@@ -7,18 +7,18 @@ module Components
       end
 
       def view_template(&)
-        Components::Posts::Card() do
-          Components::Posts::CardLink(href: post_path(@post))
-          Components::Posts::CardContextMenu(url: @context_menu[:url], dom_id: @context_menu[:id]) if show_context_menu?
-          Components::Posts::CardThumb(classes: "w-full aspect-square bg-muted flex overflow-hidden p-3") do
+        Components::Card() do
+          Components::CardLink(href: post_path(@post))
+          Components::CardContextMenu(url: @context_menu[:url], dom_id: @context_menu[:id]) if show_context_menu?
+          Components::CardThumb(classes: "w-full aspect-square bg-muted flex overflow-hidden p-3") do
             div(class: "overflow-auto text-sm font-normal [&_p]:mb-3 [&_h3]:scroll-m-20 [&_h3]:font-semibold [&_h3]:tracking-tight [&_h3]:text-lg [&_h3]:mb-2") do
               marksmithed(@post.content).html_safe
             end
           end
-          Components::Posts::CardPrimaryActions() do |pa|
+          Components::CardPrimaryActions() do |pa|
             pa.with_primary { Components::Posts::SaveBtn(post: @post, size: :sm) } if authenticated?
           end
-          Components::Posts::CardMeta(
+          Components::CardMeta(
             title: @post.title,
             datetime: @post.created_at,
             author: @post.user

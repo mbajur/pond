@@ -7,14 +7,14 @@ module Components
       end
 
       def view_template(&)
-        Components::Posts::Card() do
-          Components::Posts::CardLink(href: post_path(@post))
-          Components::Posts::CardThumb() { image }
-          Components::Posts::CardContextMenu(url: @context_menu[:url], dom_id: @context_menu[:id]) if show_context_menu?
-          Components::Posts::CardPrimaryActions() do |pa|
+        Components::Card() do
+          Components::CardLink(href: post_path(@post))
+          Components::CardThumb() { image }
+          Components::CardContextMenu(url: @context_menu[:url], dom_id: @context_menu[:id]) if show_context_menu?
+          Components::CardPrimaryActions() do |pa|
             pa.with_primary { Components::Posts::SaveBtn(post: @post, size: :sm) } if authenticated?
           end
-          Components::Posts::CardMeta(
+          Components::CardMeta(
             title: @post.title,
             datetime: @post.created_at,
             author: @post.user
