@@ -18,7 +18,7 @@ module Components
             end
           end
           Components::Posts::CardMeta(
-            title: @post.title,
+            title: title,
             datetime: @post.created_at,
             author: @post.user
           )
@@ -45,6 +45,10 @@ module Components
 
       def show_context_menu?
         @context_menu[:id].present? && @context_menu[:url].present?
+      end
+
+      def title
+        @post.title || @post.url.gsub(/http(s)\:\/\//, "") || "Untitled"
       end
     end
   end

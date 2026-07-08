@@ -23,7 +23,7 @@ Feature: Connect
     Given "https://example.com" URL post by "@user" on "User Collection" collection exists
     When I visit "@user" profile page
     And I click on the "User Collection" link
-    And I click "Connect" button within "https://example.com" post connection
+    And I click "Connect" button within "example.com" post connection
     And I select "Admin Collection" from "pin_collection_id" select box
     And I click on the "Save" button
     Then I should see "Pin connected to Admin Collection" flash message
@@ -36,7 +36,7 @@ Feature: Connect
     Given "https://example.com" URL post by "@user" on "User Collection" collection exists
     When I visit "@user" profile page
     And I click on the "User Collection" link
-    And I click on the "https://example.com" post thumb
+    And I click on the "example.com" post thumb
     Then I should see "https://example.com" post page
     And I click on the "Connect" button
     And I select "Admin Collection" from "pin_collection_id" select box
