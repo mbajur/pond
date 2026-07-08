@@ -5,7 +5,7 @@ module ConnectionSteps
     visit user_collection_path(user, collection)
   end
 
-  step "I click :button button within :post_title post connection" do |button, post_title|
+  step "I click :button button within :post_title connection" do |button, post_title|
     card = find('div.pin', text: post_title)
     card.hover
     within(card) do
@@ -13,7 +13,7 @@ module ConnectionSteps
     end
   end
 
-  step "I should see :post_title post connection" do |post_title|
+  step "I should see :post_title connection" do |post_title|
     find('body').hover # just to make sure pin is not in hover state
     expect(page).to have_selector('div.pin', text: post_title)
   end

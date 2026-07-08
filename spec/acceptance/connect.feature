@@ -19,11 +19,26 @@ Feature: Connect
     Then I should see "User Collection" text
 
   @js
+  Scenario: connecting collection from pin
+    Given "@admin" has "Second Admin Collection" collection
+    When I visit "@user" profile page
+    And I click on the "User Collection" link
+    And I click on the "Connect" button
+    And I select "Admin Collection" from "pin_collection_id" select box
+    And I click on the "Save" button
+    Then I should see "Pin connected to Admin Collection" flash message
+    And I visit "@admin" profile page
+    And I click "Connect" button within "User Collection" connection
+    And I select "Second Admin Collection" from "pin_collection_id" select box
+    And I click on the "Save" button
+    Then I should see "Pin connected to Second Admin Collection" flash message
+
+  @js
   Scenario: connecting post from pin
     Given "https://example.com" URL post by "@user" on "User Collection" collection exists
     When I visit "@user" profile page
     And I click on the "User Collection" link
-    And I click "Connect" button within "https://example.com" post connection
+    And I click "Connect" button within "example.com" connection
     And I select "Admin Collection" from "pin_collection_id" select box
     And I click on the "Save" button
     Then I should see "Pin connected to Admin Collection" flash message
@@ -36,7 +51,7 @@ Feature: Connect
     Given "https://example.com" URL post by "@user" on "User Collection" collection exists
     When I visit "@user" profile page
     And I click on the "User Collection" link
-    And I click on the "https://example.com" post thumb
+    And I click on the "example.com" post thumb
     Then I should see "https://example.com" post page
     And I click on the "Connect" button
     And I select "Admin Collection" from "pin_collection_id" select box
