@@ -3,7 +3,7 @@ module Components
     class Url::Card < Components::Base
       def initialize(post:, **opts)
         @post = post
-        @context_menu = opts[:context_menu]
+        @context_menu = opts[:context_menu] || {}
       end
 
       def view_template(&)
