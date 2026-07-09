@@ -9,7 +9,7 @@ module Components
       end
 
       def view_template(&)
-        div(class: "pin") do
+        div(class: "pin", id: dom_id(@pin)) do
           if @pin.pinable_type == "Post"
             render Components::Posts::Card.new(@pin.pinable, context_menu: { id: dom_id(@pin, :secondary_actions), url: secondary_actions_pin_path(@pin) })
           elsif @pin.pinable_type == "Collection"

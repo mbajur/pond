@@ -15,4 +15,10 @@ module PostSteps
   step "I should see :post_url post page" do |post_url|
     expect(page).to have_current_path(post_path(Post.find_by!(url: post_url)))
   end
+
+  step ":url pinned URL post is updated with :title" do |url, title|
+    post = Post.find_by!(url: url)
+    post.update!(title: title)
+    post.refresh_pins_cards
+  end
 end

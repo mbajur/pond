@@ -23,6 +23,7 @@ class PinsController < ApplicationController
 
     if @pin.save
       @pin.collection.touch(:changed_at)
+      @pin.collection.refresh_rows_later
 
       respond_to do |format|
         format.turbo_stream
@@ -43,7 +44,10 @@ class PinsController < ApplicationController
 
   def destroy
     authorize @pin
+    @referrer_action = Rails.application.routes.recognize_path(request.referer)
     @pin.destroy!
+
+    @pin.collection.refresh_rows_later
 
     respond_to do |format|
       format.html { redirect_back fallback_location: root_path, notice: "Pin was successfully destroyed." }

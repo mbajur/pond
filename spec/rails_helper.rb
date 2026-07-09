@@ -46,10 +46,11 @@ RSpec.configure do |config|
   #   Rails.root.join('spec/fixtures')
   # ]
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
+  # Cleanup is handled by DatabaseCleaner (see spec/support/database_cleaner.rb),
+  # which switches to :truncation for :js specs so background threads (Puma,
+  # ActionCable, ActiveJob) can see committed data. Leaving this on would wrap
+  # every example in its own rollback-only transaction regardless of strategy.
+  config.use_transactional_fixtures = false
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false

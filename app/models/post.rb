@@ -27,8 +27,7 @@ class Post < ApplicationRecord
   # @todo move that out of here
   def refresh_pins_cards
     pins.find_each do |pin|
-      broadcast_replace_later_to(pin, :card, targets: ".meta_pin_#{pin.id}", html: Components::Pins::Pin::Meta.new(pin: pin).call)
-      broadcast_replace_later_to(pin, :card, targets: ".thumb_pin_#{pin.id}", html: Components::Pins::Pin::Thumb.new(pin: pin).call)
+      broadcast_replace_later_to(pin.collection, target: "pin_#{pin.id}", html: ApplicationController.render(Components::Pins::Pin.new(pin: pin), layout: false))
     end
   end
 

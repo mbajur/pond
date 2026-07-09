@@ -12,7 +12,7 @@
   </turbo-stream>
 
   <% if @referrer_action[:controller] == "collections" && @referrer_action[:action] == "index" %>
-    <turbo-stream action="update" target="<%= dom_id(@pin.collection) %>">
+    <turbo-stream action="update" target="<%= dom_id(@pin.collection, :row) %>">
       <template>
         <%= render Components::Collections::Collection.new(collection: @pin.collection) %>
       </template>

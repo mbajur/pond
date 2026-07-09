@@ -38,6 +38,10 @@ class Collection < ApplicationRecord
     }
   end
 
+  def refresh_rows_later
+    broadcast_replace_later_to(self, target: "row_collection_#{id}", html: ApplicationController.render(Components::Collections::Collection.new(collection: self), layout: false))
+  end
+
   private
 
   def only_one_inbox_per_user
