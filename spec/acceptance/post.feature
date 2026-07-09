@@ -13,7 +13,7 @@ Feature: Post
     And I click on the "Save" button
     Then I should see "Post was successfully created" flash message
     When I visit "Inbox" collection by "@admin"
-    Then I should see "example.com" post connection
+    Then I should see "example.com" connection
     When I click on the "example.com" post thumb
     Then I should see "https://example.com" post page
 
@@ -26,7 +26,7 @@ Feature: Post
     And I click on the "Save" button
     Then I should see "Post was successfully created" flash message
     When I visit "Inbox" collection by "@admin"
-    Then I should see "This is a text post" post connection
+    Then I should see "This is a text post" connection
 
   @js
   Scenario: creating image post
@@ -37,4 +37,4 @@ Feature: Post
     And I click on the "Save" button
     Then I should see "Post was successfully created" flash message
     When I visit "Inbox" collection by "@admin"
-    Then I should see "1x1.jpg" post connection
+    Then I should see "1x1.jpg" connection

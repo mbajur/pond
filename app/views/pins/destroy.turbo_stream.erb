@@ -1,7 +1,11 @@
-<turbo-stream action="refresh">
-  <template></template>
-</turbo-stream>
-
 <turbo-stream action="toast" target="ruby-ui-toaster" variant="success" title="All good!" description="Pin disconnected from <%= @pin.collection.name %>">
   <template></template>
 </turbo-stream>
+
+<% if @referrer_action[:controller] == "collections" && @referrer_action[:action] == "index" %>
+  <turbo-stream action="update" target="<%= dom_id(@pin.collection, :row) %>">
+    <template>
+      <%= render Components::Collections::Collection.new(collection: @pin.collection) %>
+    </template>
+  </turbo-stream>
+<% end %>
