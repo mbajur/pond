@@ -248,7 +248,7 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jmespath (1.6.2)
-    json (2.21.0)
+    json (2.21.1)
     kamal (2.12.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -372,7 +372,7 @@ GEM
       railties (>= 7.1, < 9)
       zeitwerk (~> 2.7)
     polyglot (0.3.5)
-    pp (0.6.3)
+    pp (0.6.4)
       prettyprint
     prettyprint (0.2.0)
     prism (1.9.0)
@@ -380,9 +380,6 @@ GEM
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
-    psych (5.4.0)
-      date
-      stringio
     public_suffix (7.0.5)
     puma (8.0.2)
       nio4r (~> 2.0)
@@ -430,9 +427,14 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.4.2)
-    rdoc (7.2.0)
+    rbs (4.0.3)
+      logger
+      prism (>= 1.6.0)
+      tsort
+    rdoc (8.0.0)
       erb
-      psych (>= 4.0.0)
+      prism (>= 1.6.0)
+      rbs (>= 4.0.0)
       tsort
     reform (2.6.2)
       disposable (>= 0.5.0, < 1.0.0)
@@ -561,18 +563,17 @@ GEM
       railties (>= 6.0.0)
     store_model (4.6.0)
       activerecord (>= 7.0)
-    stringio (3.2.0)
     tailwind_merge (1.5.2)
       sin_lru_redux (~> 2.5)
-    tailwindcss-rails (4.4.0)
+    tailwindcss-rails (4.6.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
-    tailwindcss-ruby (4.3.0)
-    tailwindcss-ruby (4.3.0-aarch64-linux-gnu)
-    tailwindcss-ruby (4.3.0-aarch64-linux-musl)
-    tailwindcss-ruby (4.3.0-arm64-darwin)
-    tailwindcss-ruby (4.3.0-x86_64-linux-gnu)
-    tailwindcss-ruby (4.3.0-x86_64-linux-musl)
+    tailwindcss-ruby (4.3.2)
+    tailwindcss-ruby (4.3.2-aarch64-linux-gnu)
+    tailwindcss-ruby (4.3.2-aarch64-linux-musl)
+    tailwindcss-ruby (4.3.2-arm64-darwin)
+    tailwindcss-ruby (4.3.2-x86_64-linux-gnu)
+    tailwindcss-ruby (4.3.2-x86_64-linux-musl)
     thor (1.5.0)
     thruster (0.1.22)
     thruster (0.1.22-aarch64-linux)
@@ -718,7 +719,7 @@ DEPENDENCIES
   stimulus-rails
   store_model (~> 4.6)
   tailwind_merge (~> 1.5)
-  tailwindcss-rails (~> 4.4)
+  tailwindcss-rails (~> 4.6)
   thruster
   trailblazer-rails (~> 2.4)
   turbo-rails
