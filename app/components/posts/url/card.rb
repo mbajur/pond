@@ -12,7 +12,7 @@ module Components
           Components::CardThumb() { image }
           Components::CardContextMenu(url: @context_menu[:url], dom_id: @context_menu[:id]) if show_context_menu?
           Components::CardPrimaryActions() do |pa|
-            pa.with_primary { Components::Posts::SaveBtn(post: @post, size: :sm) } if authenticated?
+            pa.with_primary { Components::Posts::SaveBtn(post: @post, size: :sm) }
             pa.with_secondary do
               Components::CardSourceLink(url: @post.url)
             end

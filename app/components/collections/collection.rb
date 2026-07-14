@@ -13,10 +13,10 @@ module Components
       end
 
       def view_template(&)
-        cache(@collection) do
-          turbo_stream_from(@collection)
+        turbo_stream_from(@collection)
 
-          div(class: "mb-6", id: @id || dom_id(@collection)) do
+        cache(@collection) do
+          div(class: "mb-6", id: @id || dom_id(@collection, :row)) do
             div(class: "grid grid-cols-12 gap-4 lg:gap-9 w-full") do
               div(class: "col-span-12 lg:col-span-3") do
                 a(href: href, class: "hover:underline") do

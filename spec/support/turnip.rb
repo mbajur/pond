@@ -1,5 +1,9 @@
 require 'capybara-screenshot/rspec'
 
+RSpec.configure do |config|
+  config.raise_error_for_unimplemented_steps = true
+end
+
 Dir.glob("spec/steps/**/*steps.rb") { |f| load f }
 
 RSpec.configure { |c| c.include MiscSteps }

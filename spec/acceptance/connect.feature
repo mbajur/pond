@@ -44,7 +44,7 @@ Feature: Connect
     Then I should see "Pin connected to Admin Collection" flash message
     And I visit "@admin" profile page
     And I click on the "Admin Collection" link
-    Then I should see "example.com" post connection
+    Then I should see "example.com" connection
 
   @js
   Scenario: connecting post from post page
@@ -59,4 +59,4 @@ Feature: Connect
     Then I should see "Pin connected to Admin Collection" flash message
     And I visit "@admin" profile page
     And I click on the "Admin Collection" link
-    Then I should see "example.com" post connection
+    Then I should see "example.com" connection

@@ -11,8 +11,9 @@
     <template></template>
   </turbo-stream>
 
-  <turbo-stream action="refresh">
+  <turbo-stream action="replace" target="<%= dom_id(@collection, :row) %>">
     <template>
+      <%= render Components::Collections::Collection.new(collection: @collection) %>
     </template>
   </turbo-stream>
 <% end %>
