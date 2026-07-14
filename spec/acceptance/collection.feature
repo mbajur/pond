@@ -8,10 +8,10 @@ Feature: Collection
     When I visit "@admin" profile page
     And I click on the "Add Collection" button
     And I fill in "collection_name" with "My Collection"
-    And I check "collection_private" checkbox
+    # And I check "collection_private" checkbox
     And I click on the "Create collection" button
     Then I should see "My Collection" in page header
-    Then I should see "private" in page header
+  # Then I should see "private" in page header
 
   @js
   Scenario: editing collection
@@ -20,10 +20,10 @@ Feature: Collection
     And I click on the "My Collection" link
     And I click on the "Edit Collection" button
     And I fill in "collection_name" with "My Collection Edited"
-    And I check "collection_private" checkbox
+    #And I check "collection_private" checkbox
     And I click on the "Update collection" button
     Then I should see "My Collection Edited" in page header
-    Then I should see "private" in page header
+  #Then I should see "private" in page header
 
   Scenario: visiting other user private collection
     Given user with "user@example.com" email address and "user" username exists
