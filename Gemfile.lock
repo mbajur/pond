@@ -562,7 +562,7 @@ GEM
     store_model (4.6.0)
       activerecord (>= 7.0)
     stringio (3.2.0)
-    tailwind_merge (1.5.1)
+    tailwind_merge (1.5.2)
       sin_lru_redux (~> 2.5)
     tailwindcss-rails (4.4.0)
       railties (>= 7.0.0)
