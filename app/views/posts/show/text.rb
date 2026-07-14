@@ -9,8 +9,8 @@ module Views
       def view_template(&)
         Components::Posts::ShowContent() do |sc|
           sc.with_preview do
-            div(class: "border-r p-6 w-full h-full flex justify-center") do
-              div(class: "bg-muted prose prose-h1:font-bold prose-h2:font-bold p-12") do
+            div(class: "border-r p-6 w-full h-full flex flex-col items-center justify-center") do
+              div(class: "bg-secondary prose w-4xl max-w-none max-h-full overflow-scroll prose-h1:font-bold prose-h2:font-bold p-12") do
                 raw marksmithed(@post.content).html_safe
               end
             end
