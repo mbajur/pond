@@ -3,7 +3,7 @@
 
 module Image::Operation
   class Process < Trailblazer::Operation
-    MAX_SIDE = 1440
+    MAX_SIDE = 1280
 
     step :load
     step :resize

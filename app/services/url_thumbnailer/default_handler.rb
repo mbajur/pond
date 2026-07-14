@@ -1,6 +1,6 @@
 class UrlThumbnailer::DefaultHandler
-  SCREEN_WIDTH = 1440
-  SCREEN_HEIGHT = 1440
+  SCREEN_WIDTH = 1280
+  SCREEN_HEIGHT = 1280
 
   class ResponseStatusInvalidError < StandardError; end
 
