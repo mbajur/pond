@@ -13,7 +13,7 @@ module Views
         Components::Posts::ShowContent() do |sc|
           sc.with_preview do
             div(class: "border-r p-6 h-full w-full flex items-center justify-center") do
-              link_to @post.url, class: "h-full justify-center flex flex-col" do
+              link_to @post.url, class: "h-full flex flex-col justify-center" do
                 image
               end
             end
