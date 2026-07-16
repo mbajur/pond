@@ -1,6 +1,30 @@
 module Components
   module Posts
     class ShowContent < Components::Base
+      CSS_CLASSES = "grid grid-cols-12 w-full h-full min-h-0".freeze
+
+      class Content < Components::Base
+        CSS_CLASSES = "overflow-y-auto col-span-12 lg:col-span-9".freeze
+
+        def view_template(&)
+          div(class: CSS_CLASSES) do
+            div(class: "border-r p-6 w-full h-full flex flex-col items-center justify-center") do
+              yield
+            end
+          end
+        end
+      end
+
+      class Sidebar < Components::Base
+        CSS_CLASSES = "col-span-12 lg:col-span-3 py-4 px-6".freeze
+
+        def view_template(&)
+          div(class: CSS_CLASSES) do
+            yield
+          end
+        end
+      end
+
       def initialize
         @sidebar_block = nil
         @preview_block = nil
@@ -9,14 +33,9 @@ module Components
       def view_template(&)
         vanish(&)
 
-        div(class: "grid grid-cols-12 w-full h-full min-h-0") do
-          div(class: "overflow-y-auto col-span-12 lg:col-span-9") do
-            @preview_block.call if @preview_block
-          end
-
-          div(class: "col-span-12 lg:col-span-3 py-4 px-6") do
-            @sidebar_block.call if @sidebar_block
-          end
+        div(class: CSS_CLASSES) do
+          @preview_block.call if @preview_block
+          @sidebar_block.call if @sidebar_block
         end
       end
 

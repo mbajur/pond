@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     get :secondary_actions, on: :member
   end
 
-  resources :posts, only: [ :show ] do
+  resources :posts, only: [ :show, :edit, :update, :destroy ] do
     get :new_text, on: :collection
     get :new_url, on: :collection
     get :new_image, on: :collection
@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     patch :update_url, on: :member
 
     post :create_image, on: :collection
+    patch :update_image, on: :member
 
     get :context_menu, on: :member
 

@@ -4,25 +4,21 @@ class Views::Posts::Edit < Views::Base
   include Phlex::Rails::Helpers::TurboFrameTag
   include Phlex::Rails::Helpers::FormWith
 
-  def initialize(post:)
-    @post = post
+  def initialize(opts = {})
+    @opts = opts
+    @post = opts[:post]
   end
 
   def view_template
-    turbo_frame_tag :remote_dialog_content, loading: :lazy, data: { remote_dialog_target: "frame" } do
-      DialogHeader do
-        DialogTitle { "Edit post" }
-      end
-
-      DialogMiddle do
-        form_with(model: @post, url: update_text_post_path(@post), method: :patch, id: :post_form) do |f|
-          f.marksmith :content, enable_file_uploads: false
-        end
-      end
-
-      DialogFooter do
-        Button(variant: :outline, data: { action: "click->dialog#close" }) { "Cancel" }
-        Button(form: "post_form", type: :submit) { "Save" }
+    Components::PageWrapFitScreen() do
+      if @post.is_a?(Post::Url)
+        render Views::Posts::Edit::Url.new(**@opts)
+      elsif @post.is_a?(Post::Text)
+        render Views::Posts::Edit::Text.new(**@opts)
+      elsif @post.is_a?(Post::Image)
+        render Views::Posts::Edit::Image.new(**@opts)
+      else
+        raise "Unknown post type: #{@post.class.name}"
       end
     end
   end

@@ -12,12 +12,6 @@ module Views
         turbo_frame_tag(dom_id(@pin, :secondary_actions)) do
           DropdownMenuLabel { "Pin options" }
 
-          if @pin.pinable_type == "Post"
-            if policy(@pin.pinable).edit?
-              DropdownMenuItem(href: "#", data_action: "click->remote-dialog-btn#openDialog:prevent", data: { controller: :remote_dialog_btn, remote_dialog_btn_url_value: edit_path }) { "Edit post" }
-            end
-          end
-
           if policy(@pin).destroy?
             DropdownMenuSeparator()
             DropdownMenuItem(href: pin_path(@pin), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }) { "Disconnect" }

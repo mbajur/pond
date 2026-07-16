@@ -15,6 +15,10 @@ class PostPolicy < ApplicationPolicy
     user.present?
   end
 
+  def destroy?
+    user.present? && record.user_id == user.id
+  end
+
   class Scope
     def initialize(user, scope)
       @user  = user
