@@ -7,11 +7,15 @@ class Post::ImagePolicy < PostPolicy
     user&.premium?
   end
 
-  def edit?
-    update?
-  end
-
   def update?
     false
+  end
+
+  def edit?
+    user.present? && record.user_id == user.id
+  end
+
+  def update_image?
+    edit?
   end
 end

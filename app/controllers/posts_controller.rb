@@ -39,6 +39,13 @@ class PostsController < ApplicationController
     render Views::Posts::NewImage.new(post: post)
   end
 
+  def edit
+    post = policy_scope(Post).find(params[:id])
+    authorize post, :edit?
+
+    render Views::Posts::Edit.new(post: post)
+  end
+
   def edit_text
     post = policy_scope(Post).find(params[:id])
     authorize post, :edit?
@@ -59,13 +66,33 @@ class PostsController < ApplicationController
     authorize @post
 
     if @post.update(create_text_params.except(:collection_id))
-      respond_to do |format|
-        format.turbo_stream
-      end
+      redirect_to post_path(@post), notice: "Post updated successfully."
     else
-      respond_to do |format|
-        format.turbo_stream { render :update_text, status: :unprocessable_entity }
-      end
+      render :edit_text, status: :unprocessable_entity
+    end
+  end
+
+  def update_url
+    @referrer_action = Rails.application.routes.recognize_path(request.referer)
+    @post = policy_scope(Post).find(params[:id])
+    authorize @post
+
+    if @post.update(create_url_params.except(:collection_id))
+      redirect_to post_path(@post), notice: "Post updated successfully."
+    else
+      render :edit_text, status: :unprocessable_entity
+    end
+  end
+
+  def update_image
+    @referrer_action = Rails.application.routes.recognize_path(request.referer)
+    @post = policy_scope(Post).find(params[:id])
+    authorize @post
+
+    if @post.update(create_image_params.except(:collection_id))
+      redirect_to post_path(@post), notice: "Post updated successfully."
+    else
+      render :edit_text, status: :unprocessable_entity
     end
   end
 
@@ -158,17 +185,26 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    @post = policy_scope(Post).find(params[:id])
+    authorize @post, :destroy?
+
+    @post.destroy
+
+    redirect_to root_path, notice: "Post deleted successfully."
+  end
+
   private
 
   def create_text_params
-    params.require(:post_text).permit(:content, :collection_id)
+    params.require(:post_text).permit(:content, :collection_id, :title, :description)
   end
 
   def create_url_params
-    params.require(:post_url).permit(:url, :collection_id)
+    params.require(:post_url).permit(:url, :collection_id, :title, :description)
   end
 
   def create_image_params
-    params.require(:post_image).permit(:collection_id, files: [])
+    params.require(:post_image).permit(:collection_id, :title, :description, files: [])
   end
 end
