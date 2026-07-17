@@ -38,3 +38,52 @@ Feature: Post
     Then I should see "Post was successfully created" flash message
     When I visit "Inbox" collection by "@admin"
     Then I should see "1x1.jpg" connection
+
+  @js
+  Scenario: updating a URL post
+    Given "@admin" has "My Collection" collection
+    Given "https://example.com" URL post by "@admin" on "My Collection" collection exists
+    When I visit "@admin" profile page
+    And I click on the "example.com" post thumb
+    And I click on the "…" button
+    And I click on the "Edit" link
+    And I fill in "Title" with "Changed title"
+    And I click on the "Save" button
+    Then I should be on a post page with "Changed title" title
+    And I should see "Changed title" text
+
+  @js
+  Scenario: updating an image post
+    Given "@admin" has "My Collection" collection
+    Given "1x1.jpg" image post by "@admin" on "My Collection" collection exists
+    When I visit "@admin" profile page
+    And I click on the "1x1.jpg" post thumb
+    And I click on the "…" button
+    And I click on the "Edit" link
+    And I fill in "Title" with "Changed title"
+    And I click on the "Save" button
+    Then I should be on a post page with "Changed title" title
+    And I should see "Changed title" text
+
+  @js
+  Scenario: updating a text post
+    Given "@admin" has "My Collection" collection
+    Given "This is a text post" text post by "@admin" on "My Collection" collection exists
+    When I visit "@admin" profile page
+    And I click on the "This is a text post" post thumb
+    And I click on the "…" button
+    And I click on the "Edit" link
+    And I fill in "Title" with "Changed title"
+    And I click on the "Save" button
+    Then I should be on a post page with "Changed title" title
+    And I should see "Changed title" text
+
+  @js
+  Scenario: removing a post
+    Given "@admin" has "My Collection" collection
+    Given "https://example.com" URL post by "@admin" on "My Collection" collection exists
+    When I visit "@admin" profile page
+    And I click on the "example.com" post thumb
+    And I click on the "…" button
+    And I click on the "Delete" button
+    Then I should not see "example.com" connection

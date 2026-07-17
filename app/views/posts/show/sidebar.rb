@@ -30,7 +30,7 @@ module Views
                     DropdownMenuLabel { "More actions" }
                     DropdownMenuSeparator
                     DropdownMenuItem(href: edit_post_path(@post)) { "Edit" } if can_edit?
-                    button_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class: "w-full relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50" if can_destroy?
+                    button_to "Delete", post_path(@post), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "w-full relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50" if can_destroy?
                   end
                 end
               end

@@ -17,4 +17,9 @@ module ConnectionSteps
     find('body').hover # just to make sure pin is not in hover state
     expect(page).to have_selector('div.pin', text: post_title)
   end
+
+  step "I should not see :post_title connection" do |post_title|
+    find('body').hover # just to make sure pin is not in hover state
+    expect(page).not_to have_selector('div.pin', text: post_title)
+  end
 end
