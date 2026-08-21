@@ -6,7 +6,10 @@ module Users
     end
 
     def call
-      Follow.create!(actor: @actor, target: @target)
+      Fedipub::Following.find_or_create_by!(
+        actor: @actor.fedipub_actor,
+        target_actor: @target.fedipub_actor
+      )
     end
   end
 end

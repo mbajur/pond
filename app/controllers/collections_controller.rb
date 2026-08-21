@@ -87,7 +87,7 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You are now following #{@collection.user.name}." }
+      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You are now following #{@collection.name}." }
     end
   end
 
@@ -99,7 +99,7 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You have unfollowed #{@collection.user.name}." }
+      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You have unfollowed #{@collection.name}." }
     end
   end
 
