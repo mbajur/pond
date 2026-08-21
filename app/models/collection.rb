@@ -1,4 +1,5 @@
 class Collection < ApplicationRecord
+  include Fedipub::ActorEntity
   include Slugable
   include SearchCop
 
@@ -18,6 +19,10 @@ class Collection < ApplicationRecord
   search_scope :search do
     attributes :name, user: "user.username"
   end
+
+  acts_as_fedipub_actor username_field: :slug,
+                        name_field: :name,
+                        profile_url_method: :collection_url
 
   def self.find_inbox!
     find_by!(inbox: true)

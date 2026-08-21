@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_21_112919) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_21_132205) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -147,12 +147,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_112919) do
   end
 
   create_table "follows", force: :cascade do |t|
-    t.integer "actor_id", null: false
     t.datetime "created_at", null: false
+    t.integer "fedipub_actor_id"
+    t.integer "target_fedipub_actor_id"
     t.integer "target_id", null: false
     t.string "target_type", null: false
     t.datetime "updated_at", null: false
-    t.index ["actor_id"], name: "index_follows_on_actor_id"
+    t.index ["fedipub_actor_id"], name: "index_follows_on_fedipub_actor_id"
+    t.index ["target_fedipub_actor_id"], name: "index_follows_on_target_fedipub_actor_id"
     t.index ["target_type", "target_id"], name: "index_follows_on_target"
   end
 
@@ -226,7 +228,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_112919) do
   add_foreign_key "fedipub_activities", "fedipub_actors", column: "actor_id"
   add_foreign_key "fedipub_followings", "fedipub_actors", column: "actor_id"
   add_foreign_key "fedipub_followings", "fedipub_actors", column: "target_actor_id"
-  add_foreign_key "follows", "users", column: "actor_id"
+  add_foreign_key "follows", "fedipub_actors"
+  add_foreign_key "follows", "fedipub_actors", column: "target_fedipub_actor_id"
   add_foreign_key "pins", "collections"
   add_foreign_key "pins", "users"
   add_foreign_key "posts", "collections"
