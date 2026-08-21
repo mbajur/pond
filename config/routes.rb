@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   mount SolidErrors::Engine, at: "/errors" if Rails.env.production?
   mount MissionControl::Jobs::Engine, at: "/jobs"
-  mount Fedipub::Engine => '/'
+  mount Fedipub::Engine => "/"
 
   root "application#root"
 

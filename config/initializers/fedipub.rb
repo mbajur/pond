@@ -1,1 +1,1 @@
-Fedipub.config_from 'fedipub'
+Fedipub.config_from "fedipub"
