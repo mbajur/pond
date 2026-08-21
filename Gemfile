@@ -87,7 +87,7 @@ gem "phlex-rails", "~> 2.4"
 
 gem "tailwind_merge", "~> 1.5"
 
-gem "tailwindcss-rails", "~> 4.4"
+gem "tailwindcss-rails", "~> 4.6"
 
 gem "link_thumbnailer", "~> 3.4"
 
