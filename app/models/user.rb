@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Fedipub::ActorEntity
+
   has_many :sessions, dependent: :destroy
   has_many :collections, dependent: :destroy
   has_many :auth_codes, dependent: :destroy
@@ -10,6 +12,10 @@ class User < ApplicationRecord
   has_many :following_collections, through: :follows_as_actor, source: :target, source_type: "Collection"
 
   after_create :create_inbox_collection
+
+  acts_as_fedipub_actor username_field: :username,
+                        name_field: :name,
+                        profile_url_method: :user_url
 
   def self.find_by_username!(username)
     find_by!(username: username.gsub("@", ""))
