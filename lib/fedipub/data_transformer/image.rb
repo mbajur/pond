@@ -20,7 +20,7 @@ module Fedipub
                        {
                         "type"      => "Image",
                         "mediaType" => file.content_type,
-                        "href"      => RailsBlobUrlGenerator.new(file).call
+                        "href"      => RailsBlobUrlGenerator.new(file.variant(:large)).call
                        }
                      end)
       end
