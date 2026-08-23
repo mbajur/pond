@@ -111,7 +111,7 @@ gem "mission_control-jobs", "~> 1.1"
 
 gem "store_model", "~> 4.6"
 
-gem "active_storage_validations", "~> 3.0"
+gem "active_storage_validations", "~> 4.1"
 
 gem "pagy", "~> 43.6"
 
