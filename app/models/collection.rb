@@ -10,6 +10,7 @@ class Collection < ApplicationRecord
   has_many :fedipub_moderators, class_name: "Fedipub::Actor", through: :fedipub_moderators_join, source: :actor
 
   before_validation :ensure_changed_at
+  after_create :create_fedipub_moderator
 
   validates :name, presence: true
   validate :only_one_inbox_per_user, if: :inbox?
@@ -59,5 +60,9 @@ class Collection < ApplicationRecord
 
   def ensure_changed_at
     self.changed_at ||= Time.current
+  end
+
+  def create_fedipub_moderator
+    fedipub_moderators_join.create!(actor: user.fedipub_actor)
   end
 end

@@ -8,7 +8,7 @@ class CollectionPolicy < ApplicationPolicy
   end
 
   def show?
-    !record.private? || (user.present? && record.user_id == user.id)
+    !record.private? || (user.present? && record.fedipub_moderators.include?(user.fedipub_actor))
   end
 
   def connect?
@@ -20,11 +20,11 @@ class CollectionPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present? && record.user_id == user.id && !record.inbox?
+    user.present? && record.fedipub_moderators.include?(user.fedipub_actor) && !record.inbox?
   end
 
   def destroy?
-    user.present? && record.user_id == user.id
+    user.present? && record.fedipub_moderators.include?(user.fedipub_actor)
   end
 
   def follow?
@@ -32,7 +32,7 @@ class CollectionPolicy < ApplicationPolicy
   end
 
   def unfollow?
-    user.present? && record.user_id != user.id
+    follow?
   end
 
   class Scope
