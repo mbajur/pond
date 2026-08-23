@@ -10,6 +10,7 @@ class CollectionsController < ApplicationController
     add_breadcrumb(find_user.fedipub_actor.short_at_address, user_path(find_user))
 
     @page_title = "Collections by #{find_user}"
+    @actor = find_user.fedipub_actor
     @collections = policy_scope(find_user.collections).regular.all.recently_changed_first
     @inbox = policy_scope(find_user.collections).find_inbox
 
