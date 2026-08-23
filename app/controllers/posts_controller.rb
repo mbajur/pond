@@ -107,7 +107,7 @@ class PostsController < ApplicationController
 
     Post.transaction do
       @post = Post.new(create_url_params.except(:collection_id))
-      @post.user = current_user
+      @post.fedipub_actor = current_user.fedipub_actor
       @post.save if @post.new_record?
 
       @pin = Pin.new
@@ -138,7 +138,7 @@ class PostsController < ApplicationController
     @referrer_action = Rails.application.routes.recognize_path(request.referer)
 
     @post = Post::Text.new(create_text_params.except(:collection_id))
-    @post.user = current_user
+    @post.fedipub_actor = current_user.fedipub_actor
     @post.save
 
     @pin = Pin.new
@@ -166,7 +166,7 @@ class PostsController < ApplicationController
     @referrer_action = Rails.application.routes.recognize_path(request.referer)
 
     @post = Post::Image.new(create_image_params.except(:collection_id))
-    @post.user = current_user
+    @post.fedipub_actor = current_user.fedipub_actor
     @post.title = params.dig(:post_image, :files)&.last&.original_filename.to_s
     @post.save
 
