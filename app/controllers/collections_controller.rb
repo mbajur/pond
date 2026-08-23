@@ -1,4 +1,6 @@
 class CollectionsController < ApplicationController
+  helper Fedipub::ServerHelper
+
   before_action :authenticate_user!, only: %i[update destroy]
 
   def index
@@ -11,7 +13,10 @@ class CollectionsController < ApplicationController
     @collections = policy_scope(find_user.collections).regular.all.recently_changed_first
     @inbox = policy_scope(find_user.collections).find_inbox
 
-    render Views::Collections::Index.new(collections: @collections, inbox: @inbox, user: find_user)
+    respond_to do |format|
+      format.html { render Views::Collections::Index.new(collections: @collections, inbox: @inbox, user: find_user) }
+      format.activitypub { render "fedipub/server/actors/show", formats: [ :activitypub ] }
+    end
   end
 
   def show
