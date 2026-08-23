@@ -1,5 +1,9 @@
 class Post::Url < Post
+  include Fedipub::DataEntity
+
   validates_url :url, presence: true, schemes: [ :http, :https ]
+
+  acts_as_fedipub_data handles: "Page"
 
   # Moved to Post so we can join it during searches. Not ideal but it works for now.
   # has_one_attached :screenshot do |attachable|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_21_132205) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_21_180410) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -146,6 +146,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_132205) do
     t.index ["domain"], name: "index_fedipub_hosts_on_domain", unique: true
   end
 
+  create_table "fedipub_moderators", force: :cascade do |t|
+    t.integer "actor_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "entity_id", null: false
+    t.string "entity_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_fedipub_moderators_on_actor_id"
+    t.index ["entity_type", "entity_id"], name: "index_fedipub_moderators_on_entity"
+  end
+
   create_table "follows", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "fedipub_actor_id"
@@ -176,6 +186,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_132205) do
     t.text "content"
     t.datetime "created_at", null: false
     t.text "description"
+    t.string "federated_url"
+    t.integer "fedipub_actor_id"
     t.string "title"
     t.string "type", default: "Post::Url", null: false
     t.datetime "updated_at", null: false
@@ -183,6 +195,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_132205) do
     t.integer "url_cache_id"
     t.integer "user_id"
     t.index ["collection_id"], name: "index_posts_on_collection_id"
+    t.index ["fedipub_actor_id"], name: "index_posts_on_fedipub_actor_id"
     t.index ["url_cache_id"], name: "index_posts_on_url_cache_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -228,11 +241,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_132205) do
   add_foreign_key "fedipub_activities", "fedipub_actors", column: "actor_id"
   add_foreign_key "fedipub_followings", "fedipub_actors", column: "actor_id"
   add_foreign_key "fedipub_followings", "fedipub_actors", column: "target_actor_id"
+  add_foreign_key "fedipub_moderators", "fedipub_actors", column: "actor_id"
   add_foreign_key "follows", "fedipub_actors"
   add_foreign_key "follows", "fedipub_actors", column: "target_fedipub_actor_id"
   add_foreign_key "pins", "collections"
   add_foreign_key "pins", "users"
   add_foreign_key "posts", "collections"
+  add_foreign_key "posts", "fedipub_actors"
   add_foreign_key "posts", "url_caches", column: "url_cache_id"
   add_foreign_key "posts", "users"
   add_foreign_key "sessions", "users"

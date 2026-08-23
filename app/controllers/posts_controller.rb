@@ -1,10 +1,13 @@
 class PostsController < ApplicationController
+  helper Fedipub::ServerHelper
+
   before_action :authenticate_user!, only: [ :create_url, :create_text, :create_image ]
 
   def show
     post = policy_scope(Post).find(params[:id])
     authorize post
 
+    @publishable = post
     @page_title = post.title.presence || "Untitled"
     @page_description = post.description
 
@@ -14,7 +17,10 @@ class PostsController < ApplicationController
       .limit(10)
       .order(created_at: :desc)
 
-    render Views::Posts::Show.new(post: post, pins: pins)
+    respond_to do |format|
+      format.html { render Views::Posts::Show.new(post: post, pins: pins) }
+      format.activitypub { render "fedipub/server/published/show", formats: [ :activitypub ] }
+    end
   end
 
   # GET /pins/new

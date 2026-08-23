@@ -6,6 +6,8 @@ class Collection < ApplicationRecord
   has_many :pins, dependent: :destroy
   has_many :pins_as_pinable, class_name: "Pin", as: :pinable, dependent: :destroy
   belongs_to :user
+  has_many :fedipub_moderators_join, class_name: "Fedipub::Moderator", as: :entity
+  has_many :fedipub_moderators, class_name: "Fedipub::Actor", through: :fedipub_moderators_join, source: :actor
 
   before_validation :ensure_changed_at
 

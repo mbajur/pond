@@ -5,7 +5,7 @@ class CollectionsController < ApplicationController
     ensure_public_profile!
     authorize Collection
 
-    add_breadcrumb(find_user.to_s, user_path(find_user))
+    add_breadcrumb(find_user.fedipub_actor.short_at_address, user_path(find_user))
 
     @page_title = "Collections by #{find_user}"
     @collections = policy_scope(find_user.collections).regular.all.recently_changed_first
