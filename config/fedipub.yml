@@ -11,6 +11,7 @@ defaults: &defaults
   server_routes_path: federation
   client_routes_path: null
   job_queue: default
+  remote_follow_url_method: "main_app.user_collections"
   #remote_entities_cache_duration: 86400 # 1 day in seconds
   #base_client_controller: ::ActionController::Base
 
