@@ -6,3 +6,15 @@ if Rails.env.production?
     config.open_registrations = false
   end
 end
+
+Rails.application.config.to_prepare do
+  Fedipub::ServerController.class_eval do
+    include Authentication
+
+    private
+
+    def pundit_user
+      resume_session && current_user
+    end
+  end
+end
