@@ -19,6 +19,19 @@ Rails.application.config.to_prepare do
   end
 
   Fedipub::Server::PublishedController.class_eval do
+    def show
+      @publishable = type_scope.find_by!(url_param => params[:id])
+
+      entity_config = Fedipub.data_entity_configuration(@publishable.class)
+      if entity_config[:soft_deleted_method] && @publishable.send(entity_config[:soft_deleted_method])
+        raise Fedipub::DataEntity::TombstonedError
+      end
+
+      authorize @publishable, policy_class: Fedipub::Server::PublishablePolicy
+    end
+
+    private
+
     # Support STI models with common route_path_segment option
     def type_scope
       publishable_config[:class].base_class.all
