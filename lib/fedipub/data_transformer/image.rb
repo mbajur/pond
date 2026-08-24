@@ -10,7 +10,7 @@ module Fedipub
         custom.merge "@context"     => context,
                      "id"           => entity.federated_url,
                      "url"          => Rails.application.routes.url_helpers.post_url(entity),
-                     "type"         => "Image",
+                     "type"         => "Note",
                      "name"         => name,
                      "content"      => content,
                      "attributedTo" => entity.fedipub_actor.federated_url,
@@ -18,7 +18,7 @@ module Fedipub
                      "updated"      => entity.updated_at,
                      "attachment"   => (entity.files.map do |file|
                        {
-                        "type"      => "Document",
+                        "type"      => "Image",
                         "mediaType" => file.content_type,
                         "href"      => RailsBlobUrlGenerator.new(file.variant(:large)).call,
                         "name"      => file.filename.to_s,
