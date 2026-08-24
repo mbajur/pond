@@ -10,4 +10,10 @@ class Post::Url < Post
   # has_one_attached :screenshot do |attachable|
   #   attachable.variant :square_350, resize_to_fit: [ 350, 350 ], format: :jpg, saver: { quality: 80 }, preprocessed: true
   # end
+
+  def to_activitypub_object
+    Fedipub::DataTransformer::Page.to_federation self,
+                                                 name:    title,
+                                                 content: content
+  end
 end
