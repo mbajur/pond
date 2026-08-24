@@ -14,7 +14,8 @@ class Post::Image < Post
   validates :files, size: { less_than: 2.megabytes }
   validates :files, content_type: { in: AVAILABLE_CONTENT_TYPES, spoofing_protection: true }
 
-  acts_as_fedipub_data handles: "Image"
+  acts_as_fedipub_data handles: "Image",
+                       route_path_segment: "posts"
 
   def to_activitypub_object
     Fedipub::DataTransformer::Image.to_federation self,
