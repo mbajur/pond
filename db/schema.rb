@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_21_180410) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_24_121039) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -70,8 +70,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_180410) do
     t.string "slug"
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "username"
     t.index ["slug"], name: "index_collections_on_slug", unique: true
     t.index ["user_id"], name: "index_collections_on_user_id"
+    t.index ["username"], name: "index_collections_on_username"
   end
 
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|

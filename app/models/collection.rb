@@ -10,9 +10,11 @@ class Collection < ApplicationRecord
   has_many :fedipub_moderators, class_name: "Fedipub::Actor", through: :fedipub_moderators_join, source: :actor
 
   before_validation :ensure_changed_at
+  before_validation :ensure_username
   after_create :create_fedipub_moderator
 
   validates :name, presence: true
+  validates :username, uniqueness: true, if: :local?
   validate :only_one_inbox_per_user, if: :inbox?
 
   scope :inbox, -> { where(inbox: true) }
@@ -60,6 +62,14 @@ class Collection < ApplicationRecord
 
   def ensure_changed_at
     self.changed_at ||= Time.current
+  end
+
+  def ensure_username
+    self.username ||= [slug, "pond"].join("-") if slug.present? && local?
+  end
+
+  def local?
+    fedipub_actor.local?
   end
 
   def create_fedipub_moderator
