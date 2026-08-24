@@ -25,7 +25,7 @@ class Collection < ApplicationRecord
     attributes :name, user: "user.username"
   end
 
-  acts_as_fedipub_actor username_field: :slug,
+  acts_as_fedipub_actor username_field: :username,
                         name_field: :name,
                         profile_url_method: :collection_url
 
