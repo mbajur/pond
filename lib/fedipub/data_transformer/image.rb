@@ -18,9 +18,13 @@ module Fedipub
                      "updated"      => entity.updated_at,
                      "attachment"   => (entity.files.map do |file|
                        {
-                        "type"      => "Image",
+                        "type"      => "Document",
                         "mediaType" => file.content_type,
-                        "href"      => RailsBlobUrlGenerator.new(file.variant(:large)).call
+                        "href"      => RailsBlobUrlGenerator.new(file.variant(:large)).call,
+                        "name"      => file.filename.to_s,
+                        "blurhash"  => file.metadata[:blurhash],
+                        "width"     => file.metadata[:width],
+                        "height"    => file.metadata[:height]
                        }
                      end)
       end
