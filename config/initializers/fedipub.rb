@@ -17,4 +17,11 @@ Rails.application.config.to_prepare do
       resume_session && current_user
     end
   end
+
+  Fedipub::Server::PublishedController.class_eval do
+    # Support STI models with common route_path_segment option
+    def type_scope
+      publishable_config[:class].base_class.all
+    end
+  end
 end
