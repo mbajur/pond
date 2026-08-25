@@ -20,6 +20,6 @@ class Post::Image < Post
   def to_activitypub_object
     Fedipub::DataTransformer::Image.to_federation self,
                                                   name:    title || "",
-                                                  content: content || ""
+                                                  content: content || title || ""
   end
 end
