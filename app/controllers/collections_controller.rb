@@ -31,9 +31,13 @@ class CollectionsController < ApplicationController
     set_meta_tags @collection
     @pagy, @pins = pagy(policy_scope(@collection.pins.order(id: :desc).includes(:user, pinable: [ :screenshot_attachment, :thumb_attachment ])))
 
+    @actor = @collection.fedipub_actor
     Current.collection = @collection
 
-    render Views::Collections::Show.new(collection: @collection, pins: @pins, pagy: @pagy)
+    respond_to do |format|
+      format.html { render Views::Collections::Show.new(collection: @collection, pins: @pins, pagy: @pagy) }
+      format.activitypub { render "fedipub/server/actors/show", formats: [ :activitypub ] }
+    end
   end
 
   def create
