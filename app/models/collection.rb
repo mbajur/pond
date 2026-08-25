@@ -49,7 +49,10 @@ class Collection < ApplicationRecord
   end
 
   def to_activitypub_object
-    { summary: description }
+    {
+      "url" => Rails.application.routes.url_helpers.user_collection_url(user_id: self.user.to_param, slug: self.to_param),
+      "summary" => description
+    }
   end
 
   def refresh_rows_later
