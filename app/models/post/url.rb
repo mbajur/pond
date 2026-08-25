@@ -13,7 +13,7 @@ class Post::Url < Post
 
   def to_activitypub_object
     Fedipub::DataTransformer::Page.to_federation self,
-                                                 name:    title,
-                                                 content: content
+                                                 name:    title || "",
+                                                 content: content || ""
   end
 end
