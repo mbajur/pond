@@ -11,6 +11,7 @@ class Collection < ApplicationRecord
 
   before_validation :ensure_changed_at
   after_create :create_fedipub_moderator
+  after_followed :accept_follow
 
   validates :name, presence: true
   validates :username, uniqueness: true, allow_nil: true
@@ -73,5 +74,9 @@ class Collection < ApplicationRecord
 
   def create_fedipub_moderator
     fedipub_moderators_join.create!(actor: user.fedipub_actor)
+  end
+
+  def accept_follow(fedipub_follow)
+    fedipub_follow.accept!
   end
 end

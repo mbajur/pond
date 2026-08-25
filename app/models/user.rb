@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :following_collections, through: :following_actors, source: :entity, source_type: "Collection"
 
   after_create :create_inbox_collection
+  after_followed :accept_follow
 
   acts_as_fedipub_actor username_field: :username,
                         name_field: :name,
@@ -47,5 +48,9 @@ class User < ApplicationRecord
   # @todo move that out of here
   def create_inbox_collection
     collections.create!(inbox: true, name: "Inbox", private: true)
+  end
+
+  def accept_follow(fedipub_follow)
+    fedipub_follow.accept!
   end
 end
