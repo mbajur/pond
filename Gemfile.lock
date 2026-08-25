@@ -288,7 +288,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.2.1)
-    marksmith (0.5.2)
+    marksmith (0.6.0)
       activesupport
     matrix (0.4.3)
     meta-tags (2.23.0)
@@ -687,7 +687,7 @@ DEPENDENCIES
   kmeans-clusterer (~> 0.11.4)
   letter_opener
   link_thumbnailer (~> 3.4)
-  marksmith (~> 0.5.2)
+  marksmith (~> 0.6.0)
   meta-tags (~> 2.23)
   mini_magick (~> 5.3)
   mission_control-jobs (~> 1.1)

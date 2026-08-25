@@ -115,7 +115,7 @@ gem "active_storage_validations", "~> 4.1"
 
 gem "pagy", "~> 43.6"
 
-gem "marksmith", "~> 0.5.2"
+gem "marksmith", "~> 0.6.0"
 gem "commonmarker", "~> 2.8"
 
 gem "data_migrate", "~> 11.3"
