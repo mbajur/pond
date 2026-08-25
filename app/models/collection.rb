@@ -10,11 +10,10 @@ class Collection < ApplicationRecord
   has_many :fedipub_moderators, class_name: "Fedipub::Actor", through: :fedipub_moderators_join, source: :actor
 
   before_validation :ensure_changed_at
-  before_validation :ensure_username
   after_create :create_fedipub_moderator
 
   validates :name, presence: true
-  validates :username, uniqueness: true, if: :local?
+  validates :username, uniqueness: true, allow_nil: true
   validate :only_one_inbox_per_user, if: :inbox?
 
   scope :inbox, -> { where(inbox: true) }
@@ -52,6 +51,10 @@ class Collection < ApplicationRecord
     broadcast_replace_later_to(self, target: "row_collection_#{id}", html: ApplicationController.render(Components::Collections::Collection.new(collection: self), layout: false))
   end
 
+  def generate_username
+    self.username ||= [slug, "pond"].join("-") if slug.present?
+  end
+
   private
 
   def only_one_inbox_per_user
@@ -62,10 +65,6 @@ class Collection < ApplicationRecord
 
   def ensure_changed_at
     self.changed_at ||= Time.current
-  end
-
-  def ensure_username
-    self.username ||= [slug, "pond"].join("-") if slug.present? && local?
   end
 
   def create_fedipub_moderator

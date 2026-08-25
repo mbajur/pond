@@ -41,6 +41,8 @@ class CollectionsController < ApplicationController
     authorize @collection
 
     @collection.user = current_user
+    @collection.generate_slug
+    @collection.generate_username
 
     respond_to do |format|
       format.turbo_stream do
