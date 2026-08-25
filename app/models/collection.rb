@@ -47,6 +47,10 @@ class Collection < ApplicationRecord
     }
   end
 
+  def to_activitypub_object
+    { summary: description }
+  end
+
   def refresh_rows_later
     broadcast_replace_later_to(self, target: "row_collection_#{id}", html: ApplicationController.render(Components::Collections::Collection.new(collection: self), layout: false))
   end

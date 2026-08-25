@@ -30,6 +30,10 @@ class User < ApplicationRecord
     "@#{username}"
   end
 
+  def to_activitypub_object
+    { summary: description }
+  end
+
   def following?(target)
     Fedipub::Following.where(actor: self.fedipub_actor, target_actor: target.fedipub_actor).exists?
   end
