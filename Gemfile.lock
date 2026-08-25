@@ -506,7 +506,7 @@ GEM
     ruby-vips (2.3.0)
       ffi (~> 1.12)
       logger
-    ruby_ui (1.4.0)
+    ruby_ui (1.6.0)
     search_cop (1.5.0)
       treetop
     securerandom (0.4.1)
@@ -700,7 +700,7 @@ DEPENDENCIES
   rails (~> 8.1.3)
   rspec-rails (~> 8.0.0)
   rubocop-rails-omakase
-  ruby_ui (~> 1.4)
+  ruby_ui (~> 1.6)
   search_cop (~> 1.5)
   shoulda-matchers (~> 8.0)
   simplecov
