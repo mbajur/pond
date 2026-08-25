@@ -123,6 +123,7 @@ class PostsController < ApplicationController
     if @pin.save!
       UrlThumbnailer::FetchMetaJob.perform_later(@post)
       @collection.touch(:changed_at)
+      @post.announce!(actor: @collection.fedipub_actor) if @post.announcable?
 
       respond_to do |format|
         format.turbo_stream { render :create }
@@ -151,6 +152,7 @@ class PostsController < ApplicationController
 
     if @pin.save!
       @collection.touch(:changed_at)
+      @post.announce!(actor: @collection.fedipub_actor) if @post.announcable?
 
       respond_to do |format|
         format.turbo_stream { render :create }
@@ -180,6 +182,7 @@ class PostsController < ApplicationController
 
     if @pin.save!
       @collection.touch(:changed_at)
+      @post.announce!(actor: @collection.fedipub_actor) if @post.announcable?
 
       respond_to do |format|
         format.turbo_stream { render :create }
