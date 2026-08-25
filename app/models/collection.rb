@@ -52,7 +52,7 @@ class Collection < ApplicationRecord
   end
 
   def generate_username
-    self.username ||= [slug, "pond"].join("-") if slug.present?
+    self.username ||= [ slug, "pond" ].join("-") if slug.present?
   end
 
   private

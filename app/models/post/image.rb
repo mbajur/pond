@@ -4,7 +4,7 @@ class Post::Image < Post
   AVAILABLE_CONTENT_TYPES = %w[image/png image/jpeg image/gif].freeze
 
   has_many_attached :files do |attachable|
-    attachable.variant :large, resize_to_fill: [1280, 1280], format: :jpg, saver: { quality: 80 }, preprocessed: true
+    attachable.variant :large, resize_to_fill: [ 1280, 1280 ], format: :jpg, saver: { quality: 80 }, preprocessed: true
     attachable.variant :square_350, resize_to_fit: [ 350, 350 ], format: :jpg, saver: { quality: 80 }, preprocessed: true
   end
 
