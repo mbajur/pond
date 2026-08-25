@@ -135,3 +135,5 @@ gem "color", "~> 2.2"
 gem "trailblazer-rails", "~> 2.4"
 
 gem "fedipub", git: "https://gitlab.com/fedipub/fedipub"
+
+gem "appsignal"
