@@ -14,7 +14,7 @@ class Collection < ApplicationRecord
   after_create :create_fedipub_moderator
 
   validates :name, presence: true
-  validates :username, uniqueness: true, if: :local_fedipub_entity?
+  validates :username, uniqueness: true, if: :local?
   validate :only_one_inbox_per_user, if: :inbox?
 
   scope :inbox, -> { where(inbox: true) }
@@ -65,7 +65,7 @@ class Collection < ApplicationRecord
   end
 
   def ensure_username
-    self.username ||= [slug, "pond"].join("-") if slug.present? && local_fedipub_entity?
+    self.username ||= [slug, "pond"].join("-") if slug.present? && local?
   end
 
   def create_fedipub_moderator
