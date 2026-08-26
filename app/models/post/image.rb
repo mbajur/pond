@@ -15,7 +15,7 @@ class Post::Image < Post
   validates :files, content_type: { in: AVAILABLE_CONTENT_TYPES, spoofing_protection: true }
 
   acts_as_fedipub_data handles: "Image",
-                       route_path_segment: :posts
+                       route_path_segment: "posts"
 
   def to_activitypub_object
     Fedipub::DataTransformer::Image.to_federation self,

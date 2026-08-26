@@ -44,4 +44,14 @@ Rails.application.config.to_prepare do
       publishable_config[:class].base_class.all
     end
   end
+
+  # Same STI + type mismatch fix as above, for incoming federation lookups (Fedipub::Utils::Object.from_local_route)
+  def Fedipub.data_entity_handled_on(route_path_segment)
+    route_path_segment = route_path_segment.to_s
+
+    config = Fedipub::Configuration.data_types.values.find { |v| v[:route_path_segment].to_s == route_path_segment }
+    return nil unless config
+
+    config.merge(class: config[:class].base_class)
+  end
 end

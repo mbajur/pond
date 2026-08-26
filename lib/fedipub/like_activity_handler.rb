@@ -4,7 +4,6 @@ module Fedipub
       activity = Fediverse::Request.dereference(activity_hash_or_id)
       actor = Fedipub::Actor.find_or_create_by_object activity["actor"]
       object = Fediverse::Request.dereference(activity["object"])
-      pp object
       entity = Fedipub::Utils::Object.find_or_create!(object)
       raise ActiveRecord::RecordNotFound unless entity
 
