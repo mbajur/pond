@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_24_121039) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_26_113758) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -170,6 +170,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_24_121039) do
     t.index ["target_type", "target_id"], name: "index_follows_on_target"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "fedipub_actor_id", null: false
+    t.integer "likeable_id", null: false
+    t.string "likeable_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fedipub_actor_id"], name: "index_likes_on_fedipub_actor_id"
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+  end
+
   create_table "pins", force: :cascade do |t|
     t.integer "collection_id"
     t.datetime "created_at", null: false
@@ -246,6 +256,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_24_121039) do
   add_foreign_key "fedipub_moderators", "fedipub_actors", column: "actor_id"
   add_foreign_key "follows", "fedipub_actors"
   add_foreign_key "follows", "fedipub_actors", column: "target_fedipub_actor_id"
+  add_foreign_key "likes", "fedipub_actors"
   add_foreign_key "pins", "collections"
   add_foreign_key "pins", "users"
   add_foreign_key "posts", "collections"

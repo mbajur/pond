@@ -1,3 +1,5 @@
+require "fediverse/inbox"
+
 Fedipub.config_from "fedipub"
 
 if Rails.env.production?
@@ -7,6 +9,11 @@ if Rails.env.production?
   end
 end
 
+Rails.application.config.after_initialize do
+  Fediverse::Inbox.register_handler("Like", "*", Fedipub::LikeActivityHandler, :handle_like_activity)
+end
+
+# Monkey patches
 Rails.application.config.to_prepare do
   Fedipub::ServerController.class_eval do
     include Authentication
