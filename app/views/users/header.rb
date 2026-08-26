@@ -3,6 +3,7 @@ module Views
     class Header < Views::Base
       def initialize(user:)
         @user = user
+        @fedipub_actor = user.fedipub_actor
       end
 
       def view_template(&)

@@ -1,17 +1,23 @@
 class CollectionsController < ApplicationController
+  helper Fedipub::ServerHelper
+
   before_action :authenticate_user!, only: %i[update destroy]
 
   def index
     ensure_public_profile!
     authorize Collection
 
-    add_breadcrumb(find_user.to_s, user_path(find_user))
+    add_breadcrumb(find_user.fedipub_actor.short_at_address, user_path(find_user))
 
     @page_title = "Collections by #{find_user}"
+    @actor = find_user.fedipub_actor
     @collections = policy_scope(find_user.collections).regular.all.recently_changed_first
     @inbox = policy_scope(find_user.collections).find_inbox
 
-    render Views::Collections::Index.new(collections: @collections, inbox: @inbox, user: find_user)
+    respond_to do |format|
+      format.html { render Views::Collections::Index.new(collections: @collections, inbox: @inbox, user: find_user) }
+      format.activitypub { render "fedipub/server/actors/show", formats: [ :activitypub ] }
+    end
   end
 
   def show
@@ -25,9 +31,13 @@ class CollectionsController < ApplicationController
     set_meta_tags @collection
     @pagy, @pins = pagy(policy_scope(@collection.pins.order(id: :desc).includes(:user, pinable: [ :screenshot_attachment, :thumb_attachment ])))
 
+    @actor = @collection.fedipub_actor
     Current.collection = @collection
 
-    render Views::Collections::Show.new(collection: @collection, pins: @pins, pagy: @pagy)
+    respond_to do |format|
+      format.html { render Views::Collections::Show.new(collection: @collection, pins: @pins, pagy: @pagy) }
+      format.activitypub { render "fedipub/server/actors/show", formats: [ :activitypub ] }
+    end
   end
 
   def create
@@ -35,6 +45,8 @@ class CollectionsController < ApplicationController
     authorize @collection
 
     @collection.user = current_user
+    @collection.generate_slug
+    @collection.generate_username
 
     respond_to do |format|
       format.turbo_stream do
@@ -87,7 +99,7 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You are now following #{@collection.user.name}." }
+      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You are now following #{@collection.name}." }
     end
   end
 
@@ -99,7 +111,7 @@ class CollectionsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You have unfollowed #{@collection.user.name}." }
+      format.html { redirect_back fallback_location: user_path(@collection.user), notice: "You have unfollowed #{@collection.name}." }
     end
   end
 

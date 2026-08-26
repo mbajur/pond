@@ -24,7 +24,7 @@ module Components
           end
 
           plain ", containing #{pluralize(@collection.pins_count, "pin")}."
-          plain " Run by #{@collection.user}." if @opts[:show_author]
+          plain " Run by #{@collection.fedipub_moderators.first.short_at_address}." if @opts[:show_author]
         end
       end
     end

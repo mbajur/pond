@@ -20,7 +20,7 @@ module Views
         private
 
         def image
-          image_tag(rails_blob_path(@post.files.first), class: "max-h-full")
+          image_tag(rails_blob_path(@post.files.first.variant(:large)), class: "max-h-full")
         end
 
         def source_link_wrap(&block)
