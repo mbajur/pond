@@ -85,7 +85,7 @@ group :development, :test do
   gem "faker"
 end
 
-gem "ruby_ui", "~> 1.4", group: :development, require: false
+gem "ruby_ui", "~> 1.6", group: :development, require: false
 
 gem "phlex-rails", "~> 2.4"
 
@@ -114,12 +114,10 @@ gem "figaro", "~> 1.3"
 gem "mission_control-jobs", "~> 1.1"
 
 gem "store_model", "~> 4.6"
-
-gem "active_storage_validations", "~> 3.0"
+gem "active_storage_validations", "~> 4.1"
 
 gem "pagy", "~> 43.6"
-
-gem "marksmith", "~> 0.5.2"
+gem "marksmith", "~> 0.6.0"
 gem "commonmarker", "~> 2.8"
 
 gem "data_migrate", "~> 11.3"
