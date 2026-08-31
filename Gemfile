@@ -103,7 +103,7 @@ gem "faraday-follow_redirects", "~> 0.5.0"
 
 gem "validate_url", "~> 1.0"
 
-gem "ferrum", "~> 0.17.2"
+gem "ferrum", "~> 0.18.0"
 
 gem "figaro", "~> 1.3"
 
