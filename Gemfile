@@ -107,7 +107,7 @@ gem "ferrum", "~> 0.17.2"
 
 gem "figaro", "~> 1.3"
 
-gem "mission_control-jobs", "~> 1.1"
+gem "mission_control-jobs", "~> 1.2"
 
 gem "store_model", "~> 4.6"
 
