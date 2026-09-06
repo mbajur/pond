@@ -126,7 +126,7 @@ gem "aws-sdk-s3", require: false
 
 gem "search_cop", "~> 1.5"
 
-gem "meta-tags", "~> 2.23"
+gem "meta-tags", "~> 2.24"
 
 gem "kmeans-clusterer", "~> 0.11.4"
 
