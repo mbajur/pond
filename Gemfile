@@ -93,7 +93,7 @@ gem "link_thumbnailer", "~> 3.4"
 
 gem "fastimage", "~> 2.4"
 
-gem "mini_magick", "~> 5.3"
+gem "mini_magick", "~> 5.4"
 
 gem "pundit", "~> 2.5"
 

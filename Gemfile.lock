@@ -293,7 +293,7 @@ GEM
     matrix (0.4.3)
     meta-tags (2.23.0)
       actionpack (>= 6.0.0)
-    mini_magick (5.3.3)
+    mini_magick (5.4.0)
       logger
     mini_mime (1.1.5)
     minitest (6.0.6)
@@ -689,7 +689,7 @@ DEPENDENCIES
   link_thumbnailer (~> 3.4)
   marksmith (~> 0.6.0)
   meta-tags (~> 2.23)
-  mini_magick (~> 5.3)
+  mini_magick (~> 5.4)
   mission_control-jobs (~> 1.1)
   pagy (~> 43.6)
   pg
