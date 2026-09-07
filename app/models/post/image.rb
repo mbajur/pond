@@ -1,7 +1,10 @@
 class Post::Image < Post
+  include Fedipub::DataEntity
+
   AVAILABLE_CONTENT_TYPES = %w[image/png image/jpeg image/gif].freeze
 
   has_many_attached :files do |attachable|
+    attachable.variant :large, resize_to_fill: [ 1280, 1280 ], format: :jpg, saver: { quality: 80 }, preprocessed: true
     attachable.variant :square_350, resize_to_fit: [ 350, 350 ], format: :jpg, saver: { quality: 80 }, preprocessed: true
   end
 
@@ -10,4 +13,13 @@ class Post::Image < Post
   validates :files, processable_file: true
   validates :files, size: { less_than: 2.megabytes }
   validates :files, content_type: { in: AVAILABLE_CONTENT_TYPES, spoofing_protection: true }
+
+  acts_as_fedipub_data handles: "Image",
+                       route_path_segment: "posts"
+
+  def to_activitypub_object
+    Fedipub::DataTransformer::Image.to_federation self,
+                                                  name:    title || "",
+                                                  content: content || title || ""
+  end
 end

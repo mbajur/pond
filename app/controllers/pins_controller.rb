@@ -22,6 +22,7 @@ class PinsController < ApplicationController
     @pin.user = current_user
 
     if @pin.save
+      @pinable.announce!(actor: target_collection.fedipub_actor) if @pinable.announcable?
       @pin.collection.touch(:changed_at)
       @pin.collection.refresh_rows_later
 

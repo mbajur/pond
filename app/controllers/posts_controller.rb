@@ -1,10 +1,13 @@
 class PostsController < ApplicationController
+  helper Fedipub::ServerHelper
+
   before_action :authenticate_user!, only: [ :create_url, :create_text, :create_image ]
 
   def show
     post = policy_scope(Post).find(params[:id])
     authorize post
 
+    @publishable = post
     @page_title = post.title.presence || "Untitled"
     @page_description = post.description
 
@@ -14,7 +17,10 @@ class PostsController < ApplicationController
       .limit(10)
       .order(created_at: :desc)
 
-    render Views::Posts::Show.new(post: post, pins: pins)
+    respond_to do |format|
+      format.html { render Views::Posts::Show.new(post: post, pins: pins) }
+      format.activitypub { render "fedipub/server/published/show", formats: [ :activitypub ] }
+    end
   end
 
   # GET /pins/new
@@ -101,7 +107,7 @@ class PostsController < ApplicationController
 
     Post.transaction do
       @post = Post.new(create_url_params.except(:collection_id))
-      @post.user = current_user
+      @post.fedipub_actor = current_user.fedipub_actor
       @post.save if @post.new_record?
 
       @pin = Pin.new
@@ -117,6 +123,7 @@ class PostsController < ApplicationController
     if @pin.save!
       UrlThumbnailer::FetchMetaJob.perform_later(@post)
       @collection.touch(:changed_at)
+      @post.announce!(actor: @collection.fedipub_actor) if @post.announcable?
 
       respond_to do |format|
         format.turbo_stream { render :create }
@@ -132,7 +139,7 @@ class PostsController < ApplicationController
     @referrer_action = Rails.application.routes.recognize_path(request.referer)
 
     @post = Post::Text.new(create_text_params.except(:collection_id))
-    @post.user = current_user
+    @post.fedipub_actor = current_user.fedipub_actor
     @post.save
 
     @pin = Pin.new
@@ -145,6 +152,7 @@ class PostsController < ApplicationController
 
     if @pin.save!
       @collection.touch(:changed_at)
+      @post.announce!(actor: @collection.fedipub_actor) if @post.announcable?
 
       respond_to do |format|
         format.turbo_stream { render :create }
@@ -160,7 +168,7 @@ class PostsController < ApplicationController
     @referrer_action = Rails.application.routes.recognize_path(request.referer)
 
     @post = Post::Image.new(create_image_params.except(:collection_id))
-    @post.user = current_user
+    @post.fedipub_actor = current_user.fedipub_actor
     @post.title = params.dig(:post_image, :files)&.last&.original_filename.to_s
     @post.save
 
@@ -174,6 +182,7 @@ class PostsController < ApplicationController
 
     if @pin.save!
       @collection.touch(:changed_at)
+      @post.announce!(actor: @collection.fedipub_actor) if @post.announcable?
 
       respond_to do |format|
         format.turbo_stream { render :create }

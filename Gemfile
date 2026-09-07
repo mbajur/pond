@@ -81,6 +81,10 @@ group :production do
   gem "solid_errors", "~> 0.7.0"
 end
 
+group :development, :test do
+  gem "faker"
+end
+
 gem "ruby_ui", "~> 1.6", group: :development, require: false
 
 gem "phlex-rails", "~> 2.4"
@@ -110,11 +114,9 @@ gem "figaro", "~> 1.3"
 gem "mission_control-jobs", "~> 1.1"
 
 gem "store_model", "~> 4.6"
-
 gem "active_storage_validations", "~> 4.1"
 
 gem "pagy", "~> 43.6"
-
 gem "marksmith", "~> 0.6.0"
 gem "commonmarker", "~> 2.8"
 
@@ -133,3 +135,7 @@ gem "kmeans-clusterer", "~> 0.11.4"
 gem "color", "~> 2.2"
 
 gem "trailblazer-rails", "~> 2.4"
+
+gem "fedipub", git: "https://gitlab.com/fedipub/fedipub"
+
+gem "appsignal"

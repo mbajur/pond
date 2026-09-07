@@ -25,7 +25,7 @@ module Components
       span(class: "text-xs text-muted-foreground text-nowrap overflow-hidden text-ellipsis max-w-full block text-center group-hover:block hidden") {
         span { "Added " }
         span { timeago(@datetime) }
-        span { " ago by #{@author}" }
+        span { " ago by #{@author.fedipub_actor.short_at_address}" }
       }
     end
   end

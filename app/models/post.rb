@@ -1,10 +1,12 @@
 class Post < ApplicationRecord
   include SearchCop
+  include Fedipub::DataEntity
 
   has_many :pins, as: :pinable, dependent: :destroy
   has_many :collections, through: :pins
   belongs_to :collection, optional: true
-  belongs_to :user
+  belongs_to :fedipub_actor, class_name: "Fedipub::Actor"
+  has_one :user, through: :fedipub_actor, source: :entity, source_type: "User"
 
   search_scope :search do
     attributes user: "user.username"
@@ -29,6 +31,10 @@ class Post < ApplicationRecord
     pins.find_each do |pin|
       broadcast_replace_later_to(pin.collection, target: "pin_#{pin.id}", html: ApplicationController.render(Components::Pins::Pin.new(pin: pin), layout: false))
     end
+  end
+
+  def announcable?
+    true
   end
 
   private

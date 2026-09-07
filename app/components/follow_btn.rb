@@ -9,7 +9,7 @@ module Components
 
     def view_template(&)
       div(id: dom_id(@followable, :follow_btn)) do
-        if current_user.following?(@followable)
+        if current_user.fedipub_actor.follows?(@followable.fedipub_actor)
           button_to([ :unfollow, @followable ], method: :delete, class: "whitespace-nowrap inline-flex items-center justify-center rounded-md font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring aria-disabled:pointer-events-none aria-disabled:opacity-50 aria-disabled:cursor-not-allowed px-3 py-1.5 h-8 text-xs bg-primary text-primary-foreground shadow hover:bg-primary/90") do
             "Unfollow"
           end

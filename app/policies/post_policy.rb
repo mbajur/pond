@@ -16,7 +16,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.present? && record.user_id == user.id
+    user.present? && record.fedipub_actor.id == user.fedipub_actor.id
   end
 
   class Scope

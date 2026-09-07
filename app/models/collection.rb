@@ -1,14 +1,20 @@
 class Collection < ApplicationRecord
+  include Fedipub::ActorEntity
   include Slugable
   include SearchCop
 
   has_many :pins, dependent: :destroy
   has_many :pins_as_pinable, class_name: "Pin", as: :pinable, dependent: :destroy
   belongs_to :user
+  has_many :fedipub_moderators_join, class_name: "Fedipub::Moderator", as: :entity
+  has_many :fedipub_moderators, class_name: "Fedipub::Actor", through: :fedipub_moderators_join, source: :actor
 
   before_validation :ensure_changed_at
+  after_create :create_fedipub_moderator
+  after_followed :accept_follow
 
   validates :name, presence: true
+  validates :username, uniqueness: true, allow_nil: true
   validate :only_one_inbox_per_user, if: :inbox?
 
   scope :inbox, -> { where(inbox: true) }
@@ -18,6 +24,10 @@ class Collection < ApplicationRecord
   search_scope :search do
     attributes :name, user: "user.username"
   end
+
+  acts_as_fedipub_actor username_field: :username,
+                        name_field: :name,
+                        profile_url_method: :collection_url
 
   def self.find_inbox!
     find_by!(inbox: true)
@@ -38,8 +48,19 @@ class Collection < ApplicationRecord
     }
   end
 
+  def to_activitypub_object
+    {
+      "url" => Rails.application.routes.url_helpers.user_collection_url(user_id: self.user.to_param, slug: self.to_param),
+      "summary" => description
+    }
+  end
+
   def refresh_rows_later
     broadcast_replace_later_to(self, target: "row_collection_#{id}", html: ApplicationController.render(Components::Collections::Collection.new(collection: self), layout: false))
+  end
+
+  def generate_username
+    self.username = [ slug, "at" ].join("-") if slug.present?
   end
 
   private
@@ -52,5 +73,13 @@ class Collection < ApplicationRecord
 
   def ensure_changed_at
     self.changed_at ||= Time.current
+  end
+
+  def create_fedipub_moderator
+    fedipub_moderators_join.create!(actor: user.fedipub_actor)
+  end
+
+  def accept_follow(fedipub_follow)
+    fedipub_follow.accept!
   end
 end

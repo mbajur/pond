@@ -8,7 +8,7 @@ class Post::TextPolicy < PostPolicy
   end
 
   def edit?
-    user.present? && record.user_id == user.id
+    user.present? && record.fedipub_actor.id == user.fedipub_actor.id
   end
 
   def update_text?

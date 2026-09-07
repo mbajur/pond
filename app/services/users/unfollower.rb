@@ -6,7 +6,10 @@ module Users
     end
 
     def call
-      Follow.find_by!(actor: @actor, target: @target).destroy!
+      Fedipub::Following.find_by!(
+        actor: @actor.fedipub_actor,
+        target_actor: @target.fedipub_actor
+      ).destroy!
     end
   end
 end

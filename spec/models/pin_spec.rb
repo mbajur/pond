@@ -34,7 +34,7 @@ describe Pin, type: :model do
 
     it "is valid when a different item is pinned to the same collection" do
       pin_post_to(collection)
-      other_post = Post.create!(user: user, url: "https://other.com")
+      other_post = create(:post, user: user, url: "https://other.com")
       pin = Pin.new(user: user, collection: collection, pinable: other_post)
       expect(pin).to be_valid
     end

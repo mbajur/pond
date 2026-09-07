@@ -13,12 +13,12 @@ module Slugable
     slug
   end
 
-  private
-
   def generate_slug
     base_slug = name.to_s.parameterize
     self.slug = unique_slug(base_slug)
   end
+
+  private
 
   def unique_slug(base_slug)
     return base_slug unless self.class.exists?(slug: base_slug)

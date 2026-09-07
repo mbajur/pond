@@ -15,6 +15,10 @@ describe User, type: :model do
   describe ".find_by_username!" do
     let!(:user) { create(:user, username: "alice") }
 
+    it "has a fedipub actor" do
+      expect(user.fedipub_actor).to be_present
+    end
+
     it "finds a user by username" do
       expect(described_class.find_by_username!("alice")).to eq(user)
     end

@@ -1,0 +1,26 @@
+---
+defaults: &defaults
+  app_name:
+  app_version:
+  force_ssl: false
+  site_host: http://pond.localhost
+  site_port: 3000
+  enable_discovery: true
+  open_registrations: false
+  app_layout: "layouts/application"
+  server_routes_path: federation
+  job_queue: default
+  #remote_entities_cache_duration: 86400 # 1 day in seconds
+  #base_client_controller: ::ActionController::Base
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  site_port: null
+
+production:
+  <<: *defaults
+  force_ssl: true
+  site_port: 443

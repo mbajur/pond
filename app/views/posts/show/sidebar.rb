@@ -63,7 +63,7 @@ module Views
         Text(size: "1", class: "text-muted-foreground mt-2 italic") do
           plain "created "
           timeago(@post.created_at)
-          plain " ago by #{@post.user}"
+          plain " ago by #{@post.fedipub_actor.short_at_address}"
 
           if @post.updated_at
             plain ", updated "

@@ -3,7 +3,11 @@ FactoryBot.define do
     type { "Post::Url" }
     sequence(:url) { |n| "https://example#{n}.com" }
 
-    association :user
+    transient do
+      user { association :user }
+    end
+
+    fedipub_actor { user.fedipub_actor }
 
     trait :image do
       type { "Post::Image" }
